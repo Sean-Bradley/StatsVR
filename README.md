@@ -3,10 +3,13 @@ FPS and Custom Values HUD for WebVR &amp; THREE.js Projects
 
 Shows current FPS, the FPS history as a graph, and custom variables in the HMD view as a HUD, always facing the camera, and always on top.
 
-## Default StatsVR usage, with game demo in background
+## Demo webpage example usage, 
+https://sean-bradley.github.io/StatsVR-Demo/ (requires firefox, Oculus CV1, 2 Oculus Touch controllers and Rift Core 2.0 disabled in settings)
+
+## Image of Default StatsVR usage, with game demo in background
 ![Default StatsVR usage, with game demo in background](https://github.com/Sean-Bradley/StatsVR-Demo/blob/master/statsvrdefault.jpg)
 
-## StatsVR displaying custom variables, with game demo in background
+## Image of StatsVR displaying custom variables, with game demo in background
 ![StatsVR displaying custom variables, with game demo in background](https://github.com/Sean-Bradley/StatsVR-Demo/blob/master/statsvrWithCustomVars.jpg)
 
 
