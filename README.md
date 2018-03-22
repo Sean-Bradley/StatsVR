@@ -44,6 +44,7 @@ Z = -5
 offset from the camera position and rotation in the THREE.js worldspace.
 You can modify those defaults if you want, eg
 ```
+//inside your initilisation function
 statsVR = new StatsVR(scene, camera);
 statsVR.setX(1);
 statsVR.setY(0);
@@ -53,6 +54,7 @@ statsVR.setZ(-10);
 You can also show up to 3 extra custom values in the display, such as values you may want to track during execution of your program.
 eg, in the render loop,
 ```
+//inside your render loop
 statsVR.setCustom1(myVar);
 statsVR.setCustom2(anotherVar);
 statsVR.setCustom3(optionalyAnythingElse);
