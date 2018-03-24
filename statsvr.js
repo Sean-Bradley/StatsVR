@@ -34,7 +34,7 @@
         scene.add(pivot);
 
         var timer = (performance || Date);
-        var statsDisplayRefreshDelay  = 1000;
+        var statsDisplayRefreshDelay  = 100;
 
         var fpsLastTime = timer.now();
         var fpsFrames = 0;
