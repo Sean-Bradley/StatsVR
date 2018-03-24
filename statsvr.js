@@ -89,7 +89,7 @@
                 var now = timer.now();
                 var dt = now - fpsLastTime;
                 fpsFrames++;
-                if (now > fpsLastTime + statsDisplayRefreshMS) {
+                if (now > fpsLastTime + statsDisplayRefreshDelay) {
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
                     //FPS
