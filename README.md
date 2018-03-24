@@ -1,7 +1,7 @@
 # StatsVR
-FPS and Custom Values HUD for WebVR &amp; THREE.js Projects
+FPS, MS and Custom Values HUD for WebVR &amp; THREE.js Projects
 
-Shows current FPS, the FPS history as a graph, and custom variables in the HMD view as a HUD, always facing the camera, and always on top.
+Shows current FPS counter and graph, optional MS counter and graph, and optional custom variables in the HMD view as a HUD, always facing the camera, and always on top.
 
 ## Demo webpage example usage, 
 https://sean-bradley.github.io/StatsVR-Demo/ (requires firefox, Oculus CV1, 2 Oculus Touch controllers and Rift Core 2.0 disabled in settings)
@@ -12,16 +12,16 @@ https://sean-bradley.github.io/StatsVR-Demo/ (requires firefox, Oculus CV1, 2 Oc
 Download statsvr.min.js, save it, and include reference to script in your html head. eg
 
 ``<script type="text/javascript" src="statsvr.min.js"></script>``
-```
 
-//create global variables
-var camera, scene, renderer;  <-- these are commonly used THREE.js variables and may already exist in your project
-var StatsVR; 	<-- create your global statsvr variable. I named mine StatsVR
+Create global variables
+```
+var camera, scene, renderer;  // these are commonly used THREE.js variables and may already exist in your project
+var StatsVR; // create your global statsvr variable. I named mine StatsVR
 
 function init(){
-	//existing THREE.js and webvr setup goes here
-	//then after you've instantiated the THREE.js renderer, scene and camera objects,
-	StatsVR = new StatsVR(scene, camera);   <-- pass your scene and camera objects to the StatsVR constructor
+	// existing THREE.js and webvr setup goes here
+	// then after you've instantiated the THREE.js renderer, scene and camera objects,
+	StatsVR = new StatsVR(scene, camera);  // pass your scene and camera objects to the StatsVR constructor
 }
 init();
 ```
@@ -30,9 +30,7 @@ init();
 ![Default FPS Counter and Graph](https://github.com/Sean-Bradley/StatsVR-Demo/blob/master/statsVR_FPS.jpg)
 
 To show the default StatsVR FPS counter and graph, add the line 
-
 ``StatsVR.update();`` 
-
 anywhere inside your THREE.js render or animation loop.
 
 eg,
@@ -40,7 +38,7 @@ eg,
 function render() {
 	// your existing animation magic
 
-	StatsVR.update();  <-- required
+	StatsVR.update();  // required anywhere within the loop
 
 	renderer.render(scene, camera)
 }
@@ -50,11 +48,11 @@ renderer.animate(render);
 ### Show the FPS and Optional MS Counters and Graphs
 ![FPS and Optional MS Counters and Graphs](https://github.com/Sean-Bradley/StatsVR-Demo/blob/master/statsVR_FPS_MS.jpg)
 
-To show the StatsVR FPS and MS counters and graphs, also add the lines
+To show the StatsVR FPS along with the optional MS counter and graph, also add the lines
 
 ```
 StatsVR.msStart();
-//code you want to monitor the MS of goes here
+//code you want to monitor the MS duration of goes here
 StatsVR.msEnd();
 ``` 
 
@@ -64,9 +62,9 @@ eg,
 ```
 function render() {
 	// your existing animation magic
-	StatsVR.msStart(); //starts the MS monitor timespan
-	//specific code you want to monitor the MS of goes here
-	StatsVR.msEnd(); //ends the MS monitor timespan
+	StatsVR.msStart(); // starts the MS monitor timespan
+	// specific code you want to monitor the MS duration of goes here
+	StatsVR.msEnd(); // ends the MS monitor timespan
 	
 	StatsVR.update(); //required anywhere within the loop
 
@@ -74,21 +72,34 @@ function render() {
 }
 renderer.animate(render);
 ```
-or, i you want to check the MS duration of your entire render or animation loop, 
+or, if you want to check the MS duration of your entire render or animation loop, put the ``msStart()`` and ``msEnd()`` procedure calls at the beginning and end of your entire render loop.
+eg,
 ```
 function render() {
-	StatsVR.msStart(); <!--starts the MS monitor timespan
+	StatsVR.msStart(); // starts the MS monitor timespan
+
 	// your existing animation magic
 	
-	StatsVR.update();  <-- required anywhere within the loop
+	StatsVR.update();  // required anywhere within the loop
 
 	renderer.render(scene, camera)
 	
-	StatsVR.msEnd(); <!--end the MS monitor timespan
+	StatsVR.msEnd(); // end the MS monitor timespan
 }
 renderer.animate(render);
 ```
 
+
+### Also Show the optional custom fields along with the usual FPS and Optional MS Counters and Graphs.
+![FPS, MS and Custom fields](https://github.com/Sean-Bradley/StatsVR-Demo/blob/master/statsVR_FPS_MS_3Customs.jpg)
+
+You can also show up to 3 extra custom values in the display, such as values you may want to track during execution of your program.
+eg, anywhere witihn your render loop,
+```
+statsVR.setCustom1(myVar);
+statsVR.setCustom2(anotherVar);
+statsVR.setCustom3(optionalyAnythingElse);
+```
 
 
 ## Customisation
@@ -104,13 +115,7 @@ statsVR.setY(0);
 statsVR.setZ(-10);
 ```
 
-You can also show up to 3 extra custom values in the display, such as values you may want to track during execution of your program.
-eg, in the render loop,
-```
-statsVR.setCustom1(myVar);
-statsVR.setCustom2(anotherVar);
-statsVR.setCustom3(optionalyAnythingElse);
-```
+
 The benefit of using StatsVR is that you don't need to remove the HMD to view the FPS or any other custom variable you want to monitor.
 
 
