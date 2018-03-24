@@ -1,7 +1,7 @@
 # StatsVR
-FPS, MS and Custom Values HUD for WebVR &amp; THREE.js Projects
+FPS, MS and Custom Values HUD specifically for WebVR &amp; THREE.js Projects that use a HMD, such as Oculus Rift
 
-Shows current FPS counter and graph, optional MS counter and graph, and optional custom variables in the HMD view as a HUD, always facing the camera, and always on top.
+The StataVR view displays inside the HMD as a HUD, always facing the camera, and always on top.
 
 ## Demo webpage showing example usage, 
 https://sean-bradley.github.io/StatsVR-Demo/ (requires firefox, Oculus CV1, 2 Oculus Touch controllers and Rift Core 2.0 disabled in settings)
