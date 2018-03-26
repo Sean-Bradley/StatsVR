@@ -1,7 +1,10 @@
 # StatsVR
 FPS, MS and Custom Values HUD specifically for WebVR &amp; THREE.js Projects that use a HMD, such as Oculus Rift
 
-The StataVR view displays inside the HMD as a HUD, always facing the camera, and always on top.
+The StatsVR view displays inside the HMD as a HUD, always facing the camera, and always on top.
+
+## Video Tutorial of using StatsVR
+[![StatsVR Tutorial for WebVR and ThreeJS projects](https://img.youtube.com/vi/TZNZoaiTUwg/0.jpg)](https://www.youtube.com/watch?v=TZNZoaiTUwg)
 
 ## Demo webpage showing example usage, 
 https://sean-bradley.github.io/StatsVR-Demo/ (requires firefox, Oculus CV1, 2 Oculus Touch controllers and Rift Core 2.0 disabled in settings)
