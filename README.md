@@ -1,7 +1,7 @@
 # StatsVR
-FPS, MS and Custom Values HUD specifically for WebVR &amp; THREE.js Projects that use a HMD, such as Oculus Rift
+Performance statistics HUD specifically for WebVR &amp; THREE.js Projects that use a HMD, such as Oculus Rift
 
-The StatsVR view displays inside the HMD as a HUD, always facing the camera, and always on top.
+The StatsVR HUD displays the frames per second (FPS), milliseconds (MS) and upto 3 custom variables in the HMD view, always facing the camera, and always on top.
 
 ## Video Tutorial of using StatsVR
 [![StatsVR Tutorial for WebVR and ThreeJS projects](https://img.youtube.com/vi/TZNZoaiTUwg/0.jpg)](https://www.youtube.com/watch?v=TZNZoaiTUwg)
@@ -30,7 +30,7 @@ init();
 ```
 
 ## Showing the Default FPS Counter and Graph
-![Default FPS Counter and Graph](https://github.com/Sean-Bradley/StatsVR-Demo/blob/master/statsVR_FPS.jpg)
+![Default FPS Counter and Graph](https://sean-bradley.github.io/StatsVR-Demo/statsVR_FPS.jpg)
 
 To show the default StatsVR FPS counter and graph, add the line 
 ``statsVR.update();`` 
@@ -49,7 +49,7 @@ renderer.animate(render);
 ```
 
 ## Showing the FPS and also the optional MS Counters and Graphs
-![FPS and Optional MS Counters and Graphs](https://github.com/Sean-Bradley/StatsVR-Demo/blob/master/statsVR_FPS_MS.jpg)
+![FPS and Optional MS Counters and Graphs](https://sean-bradley.github.io/StatsVR-Demo/statsVR_FPS_MS.jpg)
 
 To show the StatsVR FPS along with the optional MS counter and graph, also add the lines
 
@@ -94,7 +94,7 @@ renderer.animate(render);
 
 
 ### Also Show the optional custom fields along with the usual FPS and optional MS Counters and Graphs.
-![FPS, MS and Custom fields](https://github.com/Sean-Bradley/StatsVR-Demo/blob/master/statsVR_FPS_MS_3Customs.jpg)
+![FPS, MS and Custom fields](https://sean-bradley.github.io/StatsVR-Demo/statsVR_FPS_MS_3Customs.jpg)
 
 You can also show up to 3 extra custom values in the display, such as values you may want to track during execution of your program.
 eg, anywhere witihn your render loop,
