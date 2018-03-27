@@ -1,7 +1,7 @@
 {
   "name": "statsvr",
   "version": "1.0.0",
-  "description": "FPS, MS and Custom Values HUD specifically for WebVR & THREE.js Projects.",
+  "description": "Performance statistics HUD specifically for WebVR & THREE.js Projects.",
   "main": "statsvr.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,6 +11,9 @@
     "url": "git+https://github.com/Sean-Bradley/StatsVR.git"
   },
   "keywords": [
+    "fps",
+    "performance",
+    "hud",
     "statsvr",
     "threejs",
     "webvr",
