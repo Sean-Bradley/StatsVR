@@ -1,7 +1,7 @@
 # StatsVR
 Performance statistics HUD specifically for WebVR &amp; THREE.js Projects that use a HMD, such as Oculus Rift
 
-The StatsVR HUD displays the frames per second (FPS), milliseconds (MS) and upto 3 custom variables in the HMD view, always facing the camera, and always on top.
+The StatsVR HUD displays the frames per second (FPS), milliseconds (MS) and up to 3 custom variables in the HMD view, always facing the camera, and always on top.
 
 ## Video Tutorial of using StatsVR
 [![StatsVR Tutorial for WebVR and ThreeJS projects](https://img.youtube.com/vi/TZNZoaiTUwg/0.jpg)](https://www.youtube.com/watch?v=TZNZoaiTUwg)
