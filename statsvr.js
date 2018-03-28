@@ -82,8 +82,11 @@
 
             update: function () {
                 pivot.rotation.copy(camera.rotation);
-                pivot.position.setFromMatrixPosition(camera.matrixWorld);
-
+                //pivot.position.setFromMatrixPosition(camera.matrixWorld);
+                pivot.position.x = camera.position.x;
+                pivot.position.y = camera.position.y;
+                pivot.position.z = camera.position.z;
+                
                 texture.needsUpdate = true;
 
                 var now = timer.now();
