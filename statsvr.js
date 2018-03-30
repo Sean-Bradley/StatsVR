@@ -29,10 +29,8 @@
         statsPlane.position.y = 1.5;
         statsPlane.position.z = -5;
 
-        var pivot = new THREE.Object3D();
-        pivot.add(statsPlane);
-        scene.add(pivot);
-
+        camera.add(statsPlane);
+        
         var timer = (performance || Date);
         var statsDisplayRefreshDelay  = 100;
 
@@ -76,17 +74,14 @@
             },
             msEnd: function (val) {
                 msEnd = timer.now();
-                //console.log(msStart + " " + msEnd);
                 ms = (((msEnd - msStart) * 100) / 100).toFixed(2);
             },
 
+            add: function (object3d) {
+                camera.add(object3d);
+            },
+            
             update: function () {
-                pivot.rotation.copy(camera.rotation);
-                //pivot.position.setFromMatrixPosition(camera.matrixWorld);
-                pivot.position.x = camera.position.x;
-                pivot.position.y = camera.position.y;
-                pivot.position.z = camera.position.z;
-                
                 texture.needsUpdate = true;
 
                 var now = timer.now();
