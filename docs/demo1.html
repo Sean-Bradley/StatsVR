@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>SeanWasEre Youtube - Demo 1 - WebVR, Threejs, StatsVR</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<style>
+		body {
+			margin: 0;
+			overflow: hidden;
+			font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+			font-size: 13px;
+			line-height: 20px;
+		}
+
+		button {
+			border-radius: 4px;
+			background-color: #F40 !important;
+			padding: 12px !important;
+		}
+	</style>
+	<script type="text/javascript" src="js/three.min.js"></script>
+	<script type="text/javascript" src="js/webvr.js"></script>
+	<script type="text/javascript" src="js/statsvr.min.js"></script>
+</head>
+
+<body>
+	<a href="https://github.com/Sean-Bradley">
+		<img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"
+		 alt="Fork me on GitHub">
+	</a>
+	<script>
+
+		WEBVR.checkAvailability().catch(function (message) {
+			document.body.appendChild(WEBVR.getMessageContainer(message))
+		})
+
+		//global variables
+		var camera, scene, renderer;
+
+		var statsVR;
+
+		var hudX;
+		var hudY;
+
+		function init() {
+
+			renderer = new THREE.WebGLRenderer({ antialias: true });
+			renderer.setClearColor(0x000000);
+			renderer.setPixelRatio(window.devicePixelRatio);
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			renderer.vr.enabled = true;
+			renderer.vr.standing = true;
+			document.body.appendChild(renderer.domElement);
+
+			camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100)
+			scene = new THREE.Scene();
+			scene.add(camera)
+
+			statsVR = new StatsVR(scene, camera);
+			statsVR.setX(0.6);
+			statsVR.setY(0.5);
+			statsVR.setZ(-4);
+
+			hudX = new THREE.Object3D();
+			var geometry;
+			var line;
+			geometry = new THREE.Geometry();
+			geometry.vertices.push(new THREE.Vector3(-.5, 0, 0));
+			geometry.vertices.push(new THREE.Vector3(.5, 0, 0));
+			line = new THREE.Line(geometry, new THREE.LineBasicMaterial({ color: 0x888888 }));
+			line.position.z = -5;
+			statsVR.add(line);
+			geometry = new THREE.Geometry();
+			geometry.vertices.push(new THREE.Vector3(0, -.5, 0));
+			geometry.vertices.push(new THREE.Vector3(0, .5, 0));
+			line = new THREE.Line(geometry, new THREE.LineBasicMaterial({ color: 0x888888 }));
+			line.position.z = -5;
+			statsVR.add(line);
+
+			for (var i = 0; i < 360; i = i + 5) {
+				geometry = new THREE.Geometry();
+				if (i % 10 === 0) {
+					geometry.vertices.push(new THREE.Vector3(0, -.1, 0));
+					geometry.vertices.push(new THREE.Vector3(0, .1, 0));
+				} else {
+					geometry.vertices.push(new THREE.Vector3(0, -.05, 0));
+					geometry.vertices.push(new THREE.Vector3(0, .05, 0));
+				}
+				line = new THREE.Line(geometry, new THREE.LineBasicMaterial({ color: 0x888888 }));
+				line.position.x = 5 * Math.cos(i * Math.PI / 180);
+				line.position.z = 5 * Math.sin(i * Math.PI / 180);
+				hudX.add(line);
+			}
+
+			hudY = new THREE.Object3D();
+			for (var i = 0; i < 360; i = i + 5) {
+				var geometry = new THREE.Geometry();
+				if (i % 10 === 0) {
+					geometry.vertices.push(new THREE.Vector3(-.1, 0, 0));
+					geometry.vertices.push(new THREE.Vector3(.1, 0, 0));
+				} else {
+					geometry.vertices.push(new THREE.Vector3(-.05, 0, 0));
+					geometry.vertices.push(new THREE.Vector3(.05, 0, 0));
+				}
+				var line = new THREE.Line(geometry, new THREE.LineBasicMaterial({ color: 0x888888 }));
+				line.position.z = 5 * Math.cos(i * Math.PI / 180);
+				line.position.y = 5 * Math.sin(i * Math.PI / 180);
+				hudY.add(line);
+			}
+
+			statsVR.add(hudX);
+			statsVR.add(hudY);
+			
+			WEBVR.getVRDisplay(function (display) {
+				renderer.vr.setDevice(display);
+				document.body.appendChild(WEBVR.getButton(display, renderer.domElement));
+			})
+
+			function onWindowResize() {
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+				renderer.setSize(window.innerWidth, window.innerHeight);
+			}
+			window.addEventListener('resize', onWindowResize, false);
+
+			var light = new THREE.DirectionalLight(0xFFFFFF, 1, 100);
+			light.position.set(1, 10, -0.5);
+			scene.add(light);
+
+			scene.add(new THREE.HemisphereLight(0x909090, 0x404040));
+
+			var wireframe = new THREE.Mesh(
+				new THREE.PlaneBufferGeometry(100, 100, 10, 10),
+				new THREE.MeshBasicMaterial({
+					color: 0x008800,
+					wireframe: true
+				})
+			)
+			wireframe.rotation.x = Math.PI / -2;
+			wireframe.position.y = -0.001;
+			scene.add(wireframe);
+		}
+		init();
+
+		var dt = 1;
+		var lastTime = 0;
+
+		var HalfPI = Math.PI / 2;
+
+		function render(time) {
+			statsVR.msStart();
+			statsVR.update();
+
+			dt = time - lastTime;
+			lastTime = time;
+
+			var lookAtVector = new THREE.Vector3(0, 0, -1);
+			lookAtVector.applyQuaternion(camera.quaternion);
+
+			var mx = new THREE.Matrix4().lookAt(lookAtVector, new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 1, 0));
+			var qt = new THREE.Quaternion().setFromRotationMatrix(mx);
+
+			var rotation = new THREE.Euler().setFromQuaternion(qt, 'XYZ');
+			if (rotation.x >= -HalfPI && rotation.x < HalfPI) {
+				hudX.rotation.y = rotation.y * -1;
+			} else {
+				hudX.rotation.y = rotation.y;
+			}
+			statsVR.setCustom1("x:" + rotation.x.toFixed(2));
+			statsVR.setCustom2("y:" + rotation.y.toFixed(2));
+			statsVR.setCustom3("z:" + rotation.z.toFixed(2));
+
+			rotation = new THREE.Euler().setFromQuaternion(qt, 'YZX');
+			if (rotation.y >= -HalfPI && rotation.y < HalfPI) {
+				hudY.rotation.x = rotation.x * -1;
+			} else {
+				hudY.rotation.x = rotation.x;
+			}
+
+			renderer.render(scene, camera);
+
+			statsVR.msEnd();
+		}
+		renderer.animate(render);
+
+	</script>
+</body>
+
+</html>
