@@ -9,8 +9,9 @@ The StatsVR HUD displays the frames per second (FPS), milliseconds (MS) and up t
 ## StatsVR GitHub Repository
 https://github.com/Sean-Bradley/StatsVR
 
-## Example webpage showing StatsVR usage, 
-https://sean-bradley.github.io/StatsVR-Demo/ (requires firefox, Oculus CV1, 2 Oculus Touch controllers and Rift Core 2.0 disabled in settings)
+## StatsVR Demos,
+https://sean-bradley.github.io/StatsVR/ 
+(requires firefox, Oculus CV1, 2 Oculus Touch controllers and Rift Core 2.0 disabled in settings)
 
 
 ## Initial Setup
