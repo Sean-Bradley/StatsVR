@@ -34,7 +34,7 @@ init();
 ```
 
 ## Showing the Default FPS Counter and Graph
-![Default FPS Counter and Graph](https://sean-bradley.github.io/StatsVR-Demo/statsVR_FPS.jpg)
+![Default FPS Counter and Graph](img/statsVR_FPS.jpg)
 
 To show the default StatsVR FPS counter and graph, add the line 
 ``statsVR.update();`` 
@@ -53,7 +53,7 @@ renderer.animate(render);
 ```
 
 ## Showing the FPS and also the optional MS Counters and Graphs
-![FPS and Optional MS Counters and Graphs](https://sean-bradley.github.io/StatsVR-Demo/statsVR_FPS_MS.jpg)
+![FPS and Optional MS Counters and Graphs](img/statsVR_FPS_MS.jpg)
 
 To show the StatsVR FPS along with the optional MS counter and graph, also add the lines
 
@@ -98,7 +98,7 @@ renderer.animate(render);
 
 
 ### Also Show the optional custom fields along with the usual FPS and optional MS Counters and Graphs.
-![FPS, MS and Custom fields](https://sean-bradley.github.io/StatsVR-Demo/statsVR_FPS_MS_3Customs.jpg)
+![FPS, MS and Custom fields](img/statsVR_FPS_MS_3Customs.jpg)
 
 You can also show up to 3 extra custom values in the display, such as values you may want to track during execution of your program.
 eg, anywhere witihn your render loop,
