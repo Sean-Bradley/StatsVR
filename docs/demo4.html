@@ -273,9 +273,13 @@
         Physijs.scripts.ammo = 'ammo.js';
 
         var clock = new THREE.Clock();
+
         var camera, scene, renderer;
+
         var teleportVR;
+
         var collidableMeshList = [];
+
         var Score = 0;
 
         var statsVR;
@@ -293,7 +297,6 @@
             },
         };
 
-        //var tweenPos, tweenQuat;
         var bullets = [];
         var bulletCounter = 0;
         var maxBullets = 20;
@@ -308,7 +311,7 @@
             renderer.setPixelRatio(window.devicePixelRatio);
             renderer.setSize(window.innerWidth, window.innerHeight);
             renderer.vr.enabled = true;
-            //renderer.vr.standing = true;
+
             document.body.appendChild(renderer.domElement);
 
             camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000)
@@ -316,7 +319,6 @@
             scene = new Physijs.Scene;
 
             teleportVR = new TeleportVR(scene, camera);
-            //teleportVR.setMaxDistance(100);
 
             statsVR = new StatsVR(scene, camera);
             //statsVR.setX(0);
@@ -374,8 +376,8 @@
             statsVR.add(hudY);
 
 
-
-            var targetMesh = new THREE.Mesh(
+//custom target object
+var targetMesh = new THREE.Mesh(
                 new THREE.SphereBufferGeometry(1, 32, 32),
                 new THREE.ShaderMaterial({
                     uniforms: uniforms,
@@ -412,18 +414,16 @@
             targetDirectionIndicatorR.rotateY(Math.PI / 4);
             teleportVR.target.add(targetDirectionIndicatorR);
 
+            teleportVR.removeTargetHelpers();
 
-            geometry = new THREE.TubeBufferGeometry(teleportVR.curve, 32, .1, 12, false);
-            curveMesh = new THREE.Mesh(geometry,
-                new THREE.ShaderMaterial({
-                    uniforms: uniforms,
-                    vertexShader: document.getElementById('vertexShader').textContent,
-                    fragmentShader: document.getElementById('fragmentShader').textContent,
-                    transparent: true
-                })
-            );
-            curveMesh.visible = false;
-            teleportVR.add(curveMesh);
+            //custom curve material
+            var material = new THREE.ShaderMaterial({
+                uniforms: uniforms,
+                vertexShader: document.getElementById('vertexShader').textContent,
+                fragmentShader: document.getElementById('fragmentShader').textContent,
+                transparent: true
+            });
+            teleportVR.curve.material = material;
 
 
             WEBVR.getVRDisplay(function (display) {
@@ -476,7 +476,6 @@
                 var w = getRandomInt(0, 2.5);
                 var h = getRandomInt(0, 10);
                 var l = getRandomInt(0, 2.5);
-                //var cube = new THREE.Mesh(
                 var cube = new Physijs.BoxMesh(
                     new THREE.CubeGeometry(w, h, l),
                     new THREE.MeshBasicMaterial({
@@ -491,14 +490,12 @@
                 cube.position.z = getRandomInt(-50, 50);
                 cube.userData.type = 1; //1 = scene obstacle
                 collidableMeshList.push(cube);
-                //cubes.push(cube);
                 scene.add(cube);
             }
 
 
 
             for (var i = 0; i < maxBullets; i++) {
-                //var b = new THREE.Mesh(
                 var b = new Physijs.BoxMesh(
                     new THREE.CylinderGeometry(.025, .025, 1, 3),
                     new THREE.MeshBasicMaterial({
@@ -509,7 +506,6 @@
                 );
                 b.rotation.z = Math.PI / -2;
                 b.userData.type = 2;//2 = bullet
-                //b.lifeTime = 0;
                 bullets.push(b);
                 collidableMeshList.push(b);
                 b.visible = false;
@@ -597,11 +593,7 @@
             // 	event.target.userData.mesh.material.color.setHex(0xDB3236)
             // })
             controller.addEventListener('thumbstick touch began', function (event) {
-                teleportVR.target.rotation.y = 0;
-                controller.teleportActive = true;
-                activeController = controller;
-                teleportVR.target.visible = true;
-                curveMesh.visible = true;
+                teleportVR.show(controller);
             })
             controller.addEventListener('thumbstick axes changed', function (event) {
                 if (Math.abs(event.axes[0]) > 0.01 && Math.abs(event.axes[1]) > 0.01) {
@@ -611,26 +603,6 @@
             })
             controller.addEventListener('thumbstick touch ended', function (event) {
                 teleportVR.teleport();
-                curveMesh.visible = false;
-
-                teleportVR.target.visible = false;
-                controller.teleportActive = false;
-                //}, 100);
-
-                // var pos = teleportCylinder.getWorldPosition();
-                // console.dir(pos);
-                // var quat;
-                // quat = teleportCylinder.getWorldQuaternion();
-                // console.dir(quat);
-                // tweenPos = new TWEEN.Tween(dolly.position)
-                // 	.to({ x: pos.x, y: pos.y, z: pos.z }, 1000)
-                // 	.easing(TWEEN.Easing.Quadratic.In)
-                // 	.start();
-
-                // tweenQuat = new TWEEN.Tween(dolly.quaternion)
-                // 	.to({ _x: quat._x, _y: quat._y, _z: quat._z, _w: quat._w }, 1000)
-                // 	.easing(TWEEN.Easing.Quadratic.In)
-                // 	.start();
             })
 
             controller.addEventListener('disconnected', function (event) {
@@ -698,19 +670,13 @@
             statsVR.msStart();
             statsVR.update();
 
-            //TWEEN.update();
             dt = clock.getDelta();
 
             uniforms.time.value += dt * 0.25;
 
             THREE.VRController.update();
 
-            if (activeController && activeController.teleportActive) {
-                teleportVR.update(activeController);
-
-                curveMesh.geometry.copy(new THREE.TubeBufferGeometry(teleportVR.curve, 32, .1, 12, false));
-                curveMesh.geometry.needsUpdate = true;
-            }
+            teleportVR.update();
 
             var lookAtVector = new THREE.Vector3(0, 0, -1);
             lookAtVector.applyQuaternion(camera.quaternion);
