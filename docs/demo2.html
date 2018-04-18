@@ -2,12 +2,11 @@
 <html lang="en">
 
 <head>
-	<title>SeanWasEre Youtube - Demo2 - WebVR, Threejs, Haptic Feedback, Collision Detection and StatsVR</title>
+	<title>SeanWasEre Youtube - Demo 2 - Advanced StatsVR for WebVR and Threejs projects. CHange position and show Millisecond Graph</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 	<style>
 		body {
-
 			margin: 0;
 			overflow: hidden;
 			font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -16,7 +15,6 @@
 		}
 
 		button {
-
 			border-radius: 4px;
 			background-color: #F40 !important;
 			padding: 12px !important;
@@ -24,7 +22,6 @@
 	</style>
 	<script type="text/javascript" src="js/three.min.js"></script>
 	<script type="text/javascript" src="js/webvr.js"></script>
-	<script type="text/javascript" src="js/VRController.js"></script>
 	<script type="text/javascript" src="js/statsvr.min.js"></script>
 </head>
 
@@ -41,333 +38,67 @@
 
 		//global variables
 		var camera, scene, renderer;
-		var collidableMeshList = [];
-		var cube1, cube2;
-		var SwordCollisionBoxLeft, SwordCollisionBoxRight;
-		var Score = 0;
 
 		var statsVR;
 
-
 		function init() {
 
-			renderer = new THREE.WebGLRenderer({ antialias: true })
-			renderer.setClearColor(0x000000)
-			renderer.setPixelRatio(window.devicePixelRatio)
-			renderer.setSize(window.innerWidth, window.innerHeight)
-			renderer.vr.enabled = true
-			renderer.vr.standing = true
-			renderer.shadowMap.enabled = true
-			renderer.shadowMap.type = THREE.PCFSoftShadowMap
-			document.body.appendChild(renderer.domElement)
+			renderer = new THREE.WebGLRenderer({ antialias: true });
+			renderer.setClearColor(0x000000);
+			renderer.setPixelRatio(window.devicePixelRatio);
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			renderer.vr.enabled = true;
+			renderer.vr.standing = true;
+			document.body.appendChild(renderer.domElement);
 
 			camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100)
 			scene = new THREE.Scene();
 			scene.add(camera)
 
 			statsVR = new StatsVR(scene, camera);
+			//change default statsvr position
 			statsVR.setX(0);
 			statsVR.setY(0);
 			statsVR.setZ(-2);
 
 			WEBVR.getVRDisplay(function (display) {
-				renderer.vr.setDevice(display)
-				document.body.appendChild(WEBVR.getButton(display, renderer.domElement))
+				renderer.vr.setDevice(display);
+				document.body.appendChild(WEBVR.getButton(display, renderer.domElement));
 			})
 
 			function onWindowResize() {
-				camera.aspect = window.innerWidth / window.innerHeight
-				camera.updateProjectionMatrix()
-				renderer.setSize(window.innerWidth, window.innerHeight)
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+				renderer.setSize(window.innerWidth, window.innerHeight);
 			}
-			window.addEventListener('resize', onWindowResize, false)
+			window.addEventListener('resize', onWindowResize, false);
 
-			var light = new THREE.DirectionalLight(0xFFFFFF, 1, 100)
-			light.position.set(1, 10, -0.5)
-			light.castShadow = true
-			light.shadow.mapSize.width = 2048
-			light.shadow.mapSize.height = 2048
-			light.shadow.camera.near = 1
-			light.shadow.camera.far = 12
-			scene.add(light)
-
-			scene.add(new THREE.HemisphereLight(0x909090, 0x404040))
-
-			SwordCollisionBoxLeft = new THREE.Mesh(
-				new THREE.CubeGeometry(0.03, 0.03, 4.0),
-				new THREE.MeshBasicMaterial({ color: 0xDB3236 })
-			);
-
-			SwordCollisionBoxLeft.geometry.translate(0, 0, -1.9);
-			SwordCollisionBoxLeft.verticesNeedUpdate = true;
-			SwordCollisionBoxLeft.name = "SwordLeft";
-			scene.add(SwordCollisionBoxLeft);
-			collidableMeshList.push(SwordCollisionBoxLeft);
-
-			SwordCollisionBoxRight = new THREE.Mesh(
-				new THREE.CubeGeometry(0.03, 0.03, 4.0),
-				new THREE.MeshBasicMaterial({ color: 0xDB3236 })
-			);
-			SwordCollisionBoxRight.geometry.translate(0, 0, -1.9);
-			SwordCollisionBoxRight.verticesNeedUpdate = true;
-			SwordCollisionBoxRight.name = "SwordRight";
-			scene.add(SwordCollisionBoxRight);
-			collidableMeshList.push(SwordCollisionBoxRight);
-
-			var wireframe = new THREE.Mesh(
-				new THREE.PlaneBufferGeometry(10, 10, 10, 10),
+			//a scene light
+			scene.add(new THREE.HemisphereLight(0xffffff));
+			
+			var floor = new THREE.Mesh(
+				new THREE.PlaneBufferGeometry(100, 100, 10, 10),
 				new THREE.MeshBasicMaterial({
 					color: 0x008800,
 					wireframe: true
 				})
 			)
-			wireframe.rotation.x = Math.PI / -2
-			wireframe.position.y = -0.001
-			scene.add(wireframe)
-
-			var boxGeometry = new THREE.BoxGeometry(1, 1, 1);
-			var boxMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-			cube1 = new THREE.Mesh(boxGeometry, boxMaterial);
-
-			cube1.position.x = 1;
-			cube1.position.y = 1;
-			cube1.position.z = -100;
-			cube1.userData = "cube";
-			scene.add(cube1);
-			collidableMeshList.push(cube1);
-
-			cube2 = new THREE.Mesh(boxGeometry, boxMaterial);
-			cube2.position.x = -1;
-			cube2.position.y = 1;
-			cube2.position.z = -50;
-			cube2.userData = "cube";
-			scene.add(cube2);
-			collidableMeshList.push(cube2);
-
+			floor.rotation.x = Math.PI / -2;
+			floor.position.y = -0.001;
+			scene.add(floor);
 		}
 		init();
 
-		window.addEventListener('vr controller connected', function (event) {
-			var controller = event.detail
-			scene.add(controller)
-
-			controller.standingMatrix = renderer.vr.getStandingMatrix()
-
-			controller.head = window.camera
-
-			var controllerMaterial = new THREE.MeshStandardMaterial({
-				color: 0xDB3236
-			});
-			var controllerMesh = new THREE.Mesh(
-				new THREE.CylinderGeometry(0.005, 0.05, 0.1, 6),
-				controllerMaterial
-			);
-
-			controllerMaterial.flatShading = true;
-			controllerMesh.rotation.x = -Math.PI / 2;
-			controller.userData.mesh = controllerMesh;
-			controller.add(controllerMesh);
-			controller.castShadow = true;
-			controller.receiveShadow = true;
-
-
-			// controller.addEventListener('primary press began', function (event) {
-			// 	//console.log(this.gamepad);
-			// 	this.gamepad.hapticActuators[0].pulse(0.3, 100);
-			// 	event.target.userData.mesh.material.color.setHex(0xF4C20D)
-			// 	//guiInputHelper.pressed(true)
-			// })
-			// controller.addEventListener('primary press ended', function (event) {
-			// 	event.target.userData.mesh.material.color.setHex(0xDB3236)
-			// 	//guiInputHelper.pressed(false)
-			// })
-
-			// controller.addEventListener('grip press began', function (event) {
-			// 	this.gamepad.hapticActuators[0].pulse(0.3, 100);
-			// 	event.target.userData.mesh.material.color.setHex(0xF4C20D)
-			// })
-			// controller.addEventListener('grip press ended', function (event) {
-			// 	event.target.userData.mesh.material.color.setHex(0xDB3236)
-			// })
-			// controller.addEventListener('A press began', function (event) {
-			// 	this.gamepad.hapticActuators[0].pulse(0.3, 100);
-			// 	event.target.userData.mesh.material.color.setHex(0xF4C20D)
-			// })
-			// controller.addEventListener('A press ended', function (event) {
-			// 	event.target.userData.mesh.material.color.setHex(0xDB3236)
-			// })
-			// controller.addEventListener('B press began', function (event) {
-			// 	this.gamepad.hapticActuators[0].pulse(0.3, 100);
-			// 	event.target.userData.mesh.material.color.setHex(0xF4C20D)
-			// })
-			// controller.addEventListener('B press ended', function (event) {
-			// 	event.target.userData.mesh.material.color.setHex(0xDB3236)
-			// })
-
-
-
-			controller.addEventListener('disconnected', function (event) {
-				controller.parent.remove(controller)
-			})
-		})
-
-		var particleCount = 2;
-		var particles = {};
-		var explosionCounter = 0;
-		var totalExplosionCount = 100;
-		for (var i = 0; i < totalExplosionCount; i++) {
-			addExplosion(i);
-		}
-		function addExplosion(i) {
-			var particleGeometry = new THREE.Geometry();
-			for (var j = 0; j < particleCount; j++) {
-				var vertex = new THREE.Vector3();
-				particleGeometry.vertices.push(vertex);
-			}
-			var pMaterial = new THREE.ParticleBasicMaterial({
-				color: 0xfffafa,
-				size: 0.2
-			});
-			particles[i] = new THREE.Points(particleGeometry, pMaterial);
-			scene.add(particles[i]);
-			particles[i].visible = false;
-		}
-		function explode(point, i) {
-			particles[i].position.x = point.x;
-			particles[i].position.y = point.y;
-			particles[i].position.z = point.z;
-			for (var j = 0; j < particleCount; j++) {
-				var vertex = new THREE.Vector3();
-				vertex.x = -0.2 + Math.random() * 0.4;
-				vertex.y = -0.2 + Math.random() * 0.4;
-				vertex.z = -0.2 + Math.random() * 0.4;
-				particles[i].geometry.vertices[j] = vertex;
-			}
-			particles[i].explosionPower = 1.07;
-			particles[i].visible = true;
-		}
-		function doExplosionLogic(i) {
-			if (!particles[i].visible) return;
-			for (var j = 0; j < particleCount; j++) {
-				particles[i].geometry.vertices[j].multiplyScalar(particles[i].explosionPower);
-			}
-			if (particles[i].explosionPower > 1.001) {
-				particles[i].explosionPower -= 0.0001 * dt;
-			} else {
-				particles[i].visible = false;
-			}
-			particles[i].geometry.verticesNeedUpdate = true;
-		}
-
-		var dt = 1;
-		var lastTime = 0;
-
 		function render(time) {
-			dt = time - lastTime;
-			lastTime = time;
-
-			THREE.VRController.update();
-
-			if (THREE.VRController.controllers[0]) {
-				THREE.VRController.controllers[0].getWorldPosition(SwordCollisionBoxLeft.position);
-				SwordCollisionBoxLeft.quaternion.copy(THREE.VRController.controllers[0].quaternion);
-			}
-			if (THREE.VRController.controllers[1]) {
-				THREE.VRController.controllers[1].getWorldPosition(SwordCollisionBoxRight.position);
-				SwordCollisionBoxRight.quaternion.copy(THREE.VRController.controllers[1].quaternion);
-			}
-
-			cube1.position.z += .05 * dt;
-			if (cube1.position.z > 10) {
-				cube1.position.z = -100;
-				cube1.position.x = (Math.random() * 10) - 5;
-				cube1.position.y = (Math.random() * 2);
-			}
-			cube2.position.z += .05 * dt;
-			if (cube2.position.z > 10) {
-				cube2.position.z = -100;
-				cube2.position.x = (Math.random() * 10) - 5;
-				cube2.position.y = (Math.random() * 2);
-			}
-
 			statsVR.msStart();
-			var SwordCollisionBoxLeftCollided = false;
-			for (var v = 0; v < SwordCollisionBoxLeft.geometry.vertices.length; v++) {
-				if (!SwordCollisionBoxLeftCollided) {
-					var localVertex = SwordCollisionBoxLeft.geometry.vertices[v].clone();
-					var globalVertex = localVertex.applyMatrix4(SwordCollisionBoxLeft.matrix);
-					var directionVector = globalVertex.sub(SwordCollisionBoxLeft.position);
-
-					var ray = new THREE.Raycaster(SwordCollisionBoxLeft.position, directionVector.clone().normalize());
-					var collisionResults = ray.intersectObjects(collidableMeshList);
-					if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
-						if (THREE.VRController.controllers[0]) {
-							SwordCollisionBoxLeftCollided = true;
-							THREE.VRController.controllers[0].gamepad.hapticActuators[0].pulse(0.25, 10);
-							SwordCollisionBoxLeft.material.color.setHex(0xFF8800);
-							explode(collisionResults[0].point, explosionCounter);
-							explosionCounter++;
-							if (explosionCounter >= totalExplosionCount) {
-								explosionCounter = 0;
-							}
-							if (collisionResults[0].object.userData === "cube") {
-								Score++;
-							}
-						}
-					}
-				}
-			}
-			if (!SwordCollisionBoxLeftCollided) {
-				SwordCollisionBoxLeft.material.color.setHex(0xDB3236);
-			}
-			var SwordCollisionBoxRightCollided = false;
-			for (var v = 0; v < SwordCollisionBoxRight.geometry.vertices.length; v++) {
-				if (!SwordCollisionBoxRightCollided) {
-					var localVertex = SwordCollisionBoxRight.geometry.vertices[v].clone();
-					var globalVertex = localVertex.applyMatrix4(SwordCollisionBoxRight.matrix);
-					var directionVector = globalVertex.sub(SwordCollisionBoxRight.position);
-
-					var ray = new THREE.Raycaster(SwordCollisionBoxRight.position, directionVector.clone().normalize());
-					var collisionResults = ray.intersectObjects(collidableMeshList);
-					if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
-						if (THREE.VRController.controllers[1]) {
-							SwordCollisionBoxRightCollided = true;
-							THREE.VRController.controllers[1].gamepad.hapticActuators[0].pulse(0.25, 10);
-							SwordCollisionBoxRight.material.color.setHex(0xFF8800);
-							explode(collisionResults[0].point, explosionCounter);
-							explosionCounter++;
-							if (explosionCounter >= totalExplosionCount) {
-								explosionCounter = 0;
-							}
-							if (collisionResults[0].object.userData === "cube") {
-								Score++;
-							}
-						}
-					}
-				}
-			}
-			if (!SwordCollisionBoxRightCollided) {
-				SwordCollisionBoxRight.material.color.setHex(0xDB3236);
-			}
-
-
-			for (var i = 0; i < totalExplosionCount; i++) {
-				doExplosionLogic(i);
-			}
-
-			statsVR.setCustom1("Score:" + Score);
-			statsVR.setCustom2(dt.toFixed(5));
-			statsVR.setCustom3("seanwasere");
 
 			statsVR.update();
 
-			renderer.render(scene, camera); 
+			renderer.render(scene, camera);
 
 			statsVR.msEnd();  
-
 		}
 		renderer.animate(render);
-
 
 	</script>
 </body>
