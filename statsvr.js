@@ -28,9 +28,10 @@
         statsPlane.position.x = 0;
         statsPlane.position.y = 1.5;
         statsPlane.position.z = -5;
+        statsPlane.renderOrder = 9999;
 
         camera.add(statsPlane);
-        
+
         var timer = (performance || Date);
         var statsDisplayRefreshDelay  = 100;
 
@@ -80,7 +81,7 @@
             add: function (object3d) {
                 camera.add(object3d);
             },
-            
+
             update: function () {
                 texture.needsUpdate = true;
 
