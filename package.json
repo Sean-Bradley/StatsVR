@@ -1,6 +1,6 @@
 {
   "name": "statsvr",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "description": "Performance statistics HUD specifically for WebVR & THREE.js Projects.",
   "main": "statsvr.min.js",
   "scripts": {
