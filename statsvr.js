@@ -50,6 +50,9 @@
         var custom3 = null;
 
         return {
+            setEnabled: function (enabled) {
+                statsPlane.visible = enabled;
+            },
             setX: function (val) {
                 statsPlane.position.x = val;
             },
