@@ -21,7 +21,7 @@ Download statsvr.min.js, save it, and include reference to script in your html h
 ``<script type="text/javascript" src="statsvr.min.js"></script>``
 
 Create global variables
-```
+```javascript
 var camera, scene, renderer;  // these are commonly used THREE.js variables and may already exist in your project
 var statsVR; // create your global statsvr variable. I named mine statsVR
 
@@ -41,7 +41,7 @@ To show the default StatsVR FPS counter and graph, add the line
 anywhere inside your THREE.js render or animation loop.
 
 eg,
-```
+```javascript
 function render() {
 	// your existing animation magic
 
@@ -57,7 +57,7 @@ renderer.animate(render);
 
 To show the StatsVR FPS along with the optional MS counter and graph, also add the lines
 
-```
+```javascript
 statsVR.msStart();
 //code you want to monitor the MS duration of goes here
 statsVR.msEnd();
@@ -66,7 +66,7 @@ statsVR.msEnd();
 anywhere inside your THREE.js render or animation loop.
 
 eg,
-```
+```javascript
 function render() {
 	// your existing animation magic
 	statsVR.msStart(); // starts the MS monitor timespan
@@ -81,7 +81,7 @@ renderer.animate(render);
 ```
 or, if you want to check the MS duration of your entire render or animation loop, put the ``msStart()`` and ``msEnd()`` procedure calls at the beginning and end of your entire render loop.
 eg,
-```
+```javascript
 function render() {
 	statsVR.msStart(); // starts the MS monitor timespan
 
@@ -102,7 +102,7 @@ renderer.animate(render);
 
 You can also show up to 3 extra custom values in the display, such as values you may want to track during execution of your program.
 eg, anywhere witihn your render loop,
-```
+```javascript
 statsVR.setCustom1(myVar);
 statsVR.setCustom2(anotherVar);
 statsVR.setCustom3(optionalyAnyOtherVarYouWantToMonitor);
@@ -111,7 +111,7 @@ statsVR.setCustom3(optionalyAnyOtherVarYouWantToMonitor);
 
 ### Customising the StatsVR position inside the HMD view
 The default panel is shown at offset
-```
+```javascript
 X = 0,
 Y = 1.5,
 Z = -5 
@@ -127,6 +127,14 @@ statsVR.setZ(-10);
 
 The benefit of using StatsVR is that you don't need to remove the HMD to view the FPS or any other custom variable you want to monitor.
 
+
+### Set Visibility
+```javascript
+statsVR.enablled(true);  //visible, default
+statsVR.enablled(false); //hidden
+```
+Note that the StatsVR is still in memory and may still be updated by your code. 
+StatsVR was originally written as as a debug tool, so you will get slightly better performance by removing StatsVR once you are satisified with your performance of your code or when compiling your production build.
 
 
 
