@@ -130,8 +130,8 @@ The benefit of using StatsVR is that you don't need to remove the HMD to view th
 
 ### Set Visibility
 ```javascript
-statsVR.enablled(true);  //visible, default
-statsVR.enablled(false); //hidden
+statsVR.setEnabled(true);  //visible, default
+statsVR.setEnabled(false); //hidden
 ```
 Note that the StatsVR is still in memory and may still be updated by your code. 
 StatsVR was originally written as as a debug tool, so you will get slightly better performance by removing StatsVR once you are satisified with your performance of your code or when compiling your production build.
