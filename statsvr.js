@@ -31,6 +31,7 @@
         statsPlane.renderOrder = 9999;
 
         camera.add(statsPlane);
+        scene.add(statsPlane);
 
         var timer = (performance || Date);
         var statsDisplayRefreshDelay  = 100;
