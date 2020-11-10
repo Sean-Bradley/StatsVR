@@ -106,25 +106,25 @@ renderer.setAnimationLoop(render);
 
 Basic StatsVR setup for WebVR and Threejs projects.
 
-[![StatsVR Example 1](./dist/client/img/demo1.gif)(https://sbcode.net/threejs/statsvr-1/)
+[![StatsVR Example 1](./dist/client/img/demo1.gif)](https://sbcode.net/threejs/statsvr-1/)
 
 ## Example 2
 
 Advanced StatsVR for WebVR and Threejs projects. Change position and show Millisecond Graph.
 
-[![StatsVR Example 2](./dist/client/img/demo2.gif)(https://sbcode.net/threejs/statsvr-2/)
+[![StatsVR Example 2](./dist/client/img/demo2.gif)](https://sbcode.net/threejs/statsvr-2/)
 
 ## Example 3
 
 Advanced StatsVR for WebVR and Threejs projects. Custom Variables and custom 3d objects.
 
-[![StatsVR Example 3](./dist/client/img/demo3.gif)(https://sbcode.net/threejs/statsvr-3/)
+[![StatsVR Example 3](./dist/client/img/demo3.gif)](https://sbcode.net/threejs/statsvr-3/)
 
 ## Example 4
 
 StatsVR in a minigame using WebVR, Threejs, Haptic Feedback and Collision Detection.
 
-[![StatsVR Example 4](./dist/client/img/demo4.gif)(https://sbcode.net/threejs/statsvr-4/)
+[![StatsVR Example 4](./dist/client/img/demo4.gif)](https://sbcode.net/threejs/statsvr-4/)
 
 <!-- ## Video Tutorial of using StatsVR
 [![StatsVR Tutorial for WebVR and ThreeJS projects](https://img.youtube.com/vi/TZNZoaiTUwg/0.jpg)](https://www.youtube.com/watch?v=TZNZoaiTUwg) -->
