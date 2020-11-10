@@ -2,7 +2,6 @@ import * as THREE from '/build/three.module.js';
 import StatsVR from './statsvr.js';
 import { VRButton } from '/jsm/webxr/VRButton';
 import Explosion from './explosion.js';
-import { Vector3 } from '/build/three.module.js';
 let Score = 0;
 const scene = new THREE.Scene();
 const explosions = [];
@@ -93,7 +92,7 @@ function render() {
         if (!swordLeftCollided) {
             const localVertex = swordLeft.geometry.vertices[v].clone();
             const globalVertex = localVertex.applyMatrix4(swordLeft.matrixWorld);
-            const swordLeftWorldPosition = new Vector3();
+            const swordLeftWorldPosition = new THREE.Vector3();
             swordLeft.getWorldPosition(swordLeftWorldPosition);
             const directionVector = globalVertex.sub(swordLeftWorldPosition);
             const ray = new THREE.Raycaster(swordLeftWorldPosition, directionVector.clone().normalize());
@@ -120,7 +119,7 @@ function render() {
         if (!swordRightCollided) {
             const localVertex = swordRight.geometry.vertices[v].clone();
             const globalVertex = localVertex.applyMatrix4(swordRight.matrixWorld);
-            const swordRightWorldPosition = new Vector3();
+            const swordRightWorldPosition = new THREE.Vector3();
             swordRight.getWorldPosition(swordRightWorldPosition);
             const directionVector = globalVertex.sub(swordRightWorldPosition);
             const ray = new THREE.Raycaster(swordRightWorldPosition, directionVector.clone().normalize());
