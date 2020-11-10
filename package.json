@@ -1,7 +1,7 @@
 {
   "name": "statsvr",
   "version": "2.0.2",
-  "description": "Performance statistics HUD specifically for WebVR & THREE.js Projects.",
+  "description": "Performance statistics HUD specifically for WebXR THREE.js Projects.",
   "main": "./dist/client/statsvr.js",
   "scripts": {
     "dev": "concurrently -k \"tsc -p ./src/server -w\" \"tsc -p ./src/client -w\" \"nodemon ./dist/server/server.js\"",
@@ -19,6 +19,7 @@
     "statsvr",
     "threejs",
     "webvr",
+    "webxr",
     "seanwasere"
   ],
   "author": "Sean Bradley",
@@ -26,7 +27,6 @@
   "homepage": "https://github.com/Sean-Bradley/StatsVR#readme",
   "devDependencies": {
     "@types/node": "^13.13.15",
-    "@types/dat.gui": "^0.7.5",
     "@types/express": "^4.17.8",
     "concurrently": "^5.3.0",
     "nodemon": "^2.0.4"
