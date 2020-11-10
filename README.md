@@ -3,24 +3,21 @@ Performance statistics HUD specifically for WebVR &amp; THREE.js Projects that u
 
 The StatsVR HUD displays the frames per second (FPS), milliseconds (MS) and up to 3 custom variables in the HMD view, always facing the camera, and always on top.
 
-## Video Tutorial of using StatsVR
-[![StatsVR Tutorial for WebVR and ThreeJS projects](https://img.youtube.com/vi/TZNZoaiTUwg/0.jpg)](https://www.youtube.com/watch?v=TZNZoaiTUwg)
+<!-- ## Video Tutorial of using StatsVR
+[![StatsVR Tutorial for WebVR and ThreeJS projects](https://img.youtube.com/vi/TZNZoaiTUwg/0.jpg)](https://www.youtube.com/watch?v=TZNZoaiTUwg) -->
 
-## StatsVR GitHub Repository
-https://github.com/Sean-Bradley/StatsVR
+<!-- ## StatsVR GitHub Repository
+https://github.com/Sean-Bradley/StatsVR -->
 
-## StatsVR Demos,
+## StatsVR Examples,
 https://sean-bradley.github.io/StatsVR/ 
-(requires firefox, Oculus CV1, 2 Oculus Touch controllers and Rift Core 2.0 disabled in settings)
-
-
+<!-- 
 ## Initial Setup
+Download statsvr.js, save it, and include reference to script in your html head. eg
 
-Download statsvr.min.js, save it, and include reference to script in your html head. eg
+``<script type="text/javascript" src="statsvr.min.js"></script>`` -->
 
-``<script type="text/javascript" src="statsvr.min.js"></script>``
-
-Create global variables
+<!-- Create global variables
 ```javascript
 var camera, scene, renderer;  // these are commonly used THREE.js variables and may already exist in your project
 var statsVR; // create your global statsvr variable. I named mine statsVR
@@ -137,4 +134,4 @@ Note that the StatsVR is still in memory and may still be updated by your code.
 StatsVR was originally written as as a debug tool, so you will get slightly better performance by removing StatsVR once you are satisified with your performance of your code or when compiling your production build.
 
 
-
+ -->
