@@ -37,9 +37,25 @@ import StatsVR from './statsvr.js'
 ## Simplest Example
 
 * Import StatsVR
-* Add the Threejs Camera to the Scene. (Otherwise StatsVR won't be visible in the HMD)
+	```javascript
+	import StatsVR from './statsvr.js';
+	```
+* Add your Threejs Camera to the Scene. (Otherwise StatsVR won't be visible in the HMD)
+	```javascript
+	scene.add(camera);
+	```
 * Instantiate and position StatsVR
+	```javascript
+	const statsVR = new StatsVR(camera);
+	//change default statsvr position
+	statsVR.setX(0);
+	statsVR.setY(0);
+	statsVR.setZ(-2);
+	```
 * Update StatsVR in the render loop
+	```javascript
+	statsVR.update();
+	```
 
 ```javascript{2,6,26,27,28,29,30,32}
 import * as THREE from '/build/three.module.js';
@@ -79,6 +95,17 @@ function render() {
 renderer.setAnimationLoop(render);
 ```
 
+## Example 1
+![Demo 1](./dist/client/img/demo1.gif)
+
+## Example 2
+![Demo 2](./dist/client/img/demo2.gif)
+
+## Example 3
+![Demo 3](./dist/client/img/demo3.gif)
+
+## Example 4
+![Demo 4](./dist/client/img/demo4.gif)
 
 <!-- ## Video Tutorial of using StatsVR
 [![StatsVR Tutorial for WebVR and ThreeJS projects](https://img.youtube.com/vi/TZNZoaiTUwg/0.jpg)](https://www.youtube.com/watch?v=TZNZoaiTUwg) -->
