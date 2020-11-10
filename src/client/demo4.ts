@@ -140,10 +140,10 @@ function render() {
             const collisionResults = ray.intersectObjects(collidableMeshList)
             if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
                 swordLeftCollided = true
-                //haptics disabled until supported
-                // if (controller0.userData.gamepad && controller0.userData.gamepad.hapticActuators && controller1.userData.gamepad.hapticActuators.length > 0) {
-                //     controller0.userData.gamepad.hapticActuators[0].pulse(0.25, 10);
-                // }
+                //haptics may no work
+                if (controller0.userData.gamepad && controller0.userData.gamepad.hapticActuators && controller1.userData.gamepad.hapticActuators.length > 0) {
+                    controller0.userData.gamepad.hapticActuators[0].pulse(0.25, 10);
+                }
                 swordLeft.material.color.setHex(0xFF8800)
                 explosions[0].explode(collisionResults[0].point)
                 if (collisionResults[0].object.userData.type === "cube") {
@@ -169,10 +169,10 @@ function render() {
             const collisionResults = ray.intersectObjects(collidableMeshList)
             if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
                 swordRightCollided = true
-                //haptics disabled until supported
-                // if (controller1.userData.gamepad && controller1.userData.gamepad.hapticActuators && controller1.userData.gamepad.hapticActuators.length > 1) {
-                //     controller1.userData.gamepad.hapticActuators[1].pulse(0.25, 10);
-                // }
+                //haptics may no work
+                if (controller1.userData.gamepad && controller1.userData.gamepad.hapticActuators && controller1.userData.gamepad.hapticActuators.length > 1) {
+                    controller1.userData.gamepad.hapticActuators[1].pulse(0.25, 10);
+                }
                 swordRight.material.color.setHex(0xFF8800)
                 explosions[0].explode(collisionResults[0].point)
                 if (collisionResults[0].object.userData.type === "cube") {
