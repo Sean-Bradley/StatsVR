@@ -15,7 +15,7 @@ document.body.appendChild(renderer.domElement)
 
 document.body.appendChild(VRButton.createButton(renderer))
 
-var floor = new THREE.Mesh(
+const floor = new THREE.Mesh(
     new THREE.PlaneBufferGeometry(100, 100, 10, 10),
     new THREE.MeshBasicMaterial({
         color: 0x008800,
@@ -54,7 +54,7 @@ line = new THREE.Line(geometry, new THREE.LineBasicMaterial({ color: 0x888888 })
 line.position.z = -5;
 statsVR.add(line);
 
-for (var i = 0; i < 360; i = i + 5) {
+for (let i = 0; i < 360; i = i + 5) {
     geometry = new THREE.Geometry()
     if (i % 10 === 0) {
         geometry.vertices.push(new THREE.Vector3(0, -.1, 0))
@@ -70,7 +70,7 @@ for (var i = 0; i < 360; i = i + 5) {
 }
 
 const hudY = new THREE.Object3D()
-for (var i = 0; i < 360; i = i + 5) {
+for (let i = 0; i < 360; i = i + 5) {
     geometry = new THREE.Geometry();
     if (i % 10 === 0) {
         geometry.vertices.push(new THREE.Vector3(-.1, 0, 0))

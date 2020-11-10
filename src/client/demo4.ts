@@ -81,7 +81,7 @@ for (let i = 0; i < 5; i++) {
     scene.add(cubes[i])
 }
 
-var floor = new THREE.Mesh(
+const floor = new THREE.Mesh(
     new THREE.PlaneBufferGeometry(100, 100, 10, 10),
     new THREE.MeshBasicMaterial({
         color: 0x008800,
