@@ -1,7 +1,84 @@
 # StatsVR
 Performance statistics HUD specifically for WebVR &amp; THREE.js Projects that use a HMD, such as Oculus Rift
 
-The StatsVR HUD displays the frames per second (FPS), milliseconds (MS) and up to 3 custom variables in the HMD view, always facing the camera, and always on top.
+The StatsVR HUD displays the frames per second (FPS), milliseconds (MS) and up to 3 custom variables in the HMD view, always facing the camera, and always on top of other meshes in the scene.
+
+You can download the project and view the examples.
+
+```bash
+git clone https://github.com/Sean-Bradley/StatsVR.git
+cd StatsVR
+npm install
+npm run dev
+```
+
+Visit http://127.0.0.1:3000/
+
+This is a typescript project consisting of two sub projects with there own *tsconfigs*.
+
+To edit this example, then modify the files in ./src/client/ or ./src/server/. 
+
+The projects will auto recompile if you started it by using *npm run dev*
+
+or
+
+You can simply just import the generated *./dist/client/statsvr.js* directly into your own project as a module.
+
+```javascript
+<script type="module" src="./statsvr.js"></script>
+```
+
+or as ES6 import
+
+```javascript
+import StatsVR from './statsvr.js'
+```
+
+## Simplest Example
+
+* Import StatsVR
+* Add the Threejs Camera to the Scene. (Otherwise StatsVR won't be visible in the HMD)
+* Instantiate and position StatsVR
+* Update StatsVR in the render loop
+
+```javascript{2,6,26,27,28,29,30,32}
+import * as THREE from '/build/three.module.js';
+import StatsVR from './statsvr.js';
+import { VRButton } from '/jsm/webxr/VRButton';
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+scene.add(camera);
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(window.devicePixelRatio);
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.xr.enabled = true;
+document.body.appendChild(renderer.domElement);
+document.body.appendChild(VRButton.createButton(renderer));
+var floor = new THREE.Mesh(new THREE.PlaneBufferGeometry(100, 100, 10, 10), new THREE.MeshBasicMaterial({
+    color: 0x008800,
+    wireframe: true
+}));
+floor.rotation.x = Math.PI / -2;
+floor.position.y = -0.001;
+scene.add(floor);
+window.addEventListener('resize', onWindowResize, false);
+function onWindowResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+}
+const statsVR = new StatsVR(camera);
+//change default statsvr position
+statsVR.setX(0);
+statsVR.setY(0);
+statsVR.setZ(-2);
+function render() {
+    statsVR.update();
+    renderer.render(scene, camera);
+}
+renderer.setAnimationLoop(render);
+```
+
 
 <!-- ## Video Tutorial of using StatsVR
 [![StatsVR Tutorial for WebVR and ThreeJS projects](https://img.youtube.com/vi/TZNZoaiTUwg/0.jpg)](https://www.youtube.com/watch?v=TZNZoaiTUwg) -->
@@ -9,8 +86,8 @@ The StatsVR HUD displays the frames per second (FPS), milliseconds (MS) and up t
 <!-- ## StatsVR GitHub Repository
 https://github.com/Sean-Bradley/StatsVR -->
 
-## StatsVR Examples,
-https://sean-bradley.github.io/StatsVR/ 
+<!-- ## StatsVR Examples,
+https://sean-bradley.github.io/StatsVR/  -->
 <!-- 
 ## Initial Setup
 Download statsvr.js, save it, and include reference to script in your html head. eg
