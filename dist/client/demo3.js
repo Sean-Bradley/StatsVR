@@ -3,14 +3,13 @@ import StatsVR from './statsvr.js';
 import { VRButton } from '/jsm/webxr/VRButton';
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-scene.add(camera);
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.xr.enabled = true;
 document.body.appendChild(renderer.domElement);
 document.body.appendChild(VRButton.createButton(renderer));
-var floor = new THREE.Mesh(new THREE.PlaneBufferGeometry(100, 100, 10, 10), new THREE.MeshBasicMaterial({
+const floor = new THREE.Mesh(new THREE.PlaneBufferGeometry(100, 100, 10, 10), new THREE.MeshBasicMaterial({
     color: 0x008800,
     wireframe: true
 }));
@@ -23,7 +22,7 @@ function onWindowResize() {
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
-const statsVR = new StatsVR(camera);
+const statsVR = new StatsVR(scene, camera);
 //change default statsvr position
 statsVR.setX(-.5);
 statsVR.setY(.5);
@@ -41,7 +40,7 @@ geometry.vertices.push(new THREE.Vector3(0, .5, 0));
 line = new THREE.Line(geometry, new THREE.LineBasicMaterial({ color: 0x888888 }));
 line.position.z = -5;
 statsVR.add(line);
-for (var i = 0; i < 360; i = i + 5) {
+for (let i = 0; i < 360; i = i + 5) {
     geometry = new THREE.Geometry();
     if (i % 10 === 0) {
         geometry.vertices.push(new THREE.Vector3(0, -.1, 0));
@@ -57,7 +56,7 @@ for (var i = 0; i < 360; i = i + 5) {
     hudX.add(line);
 }
 const hudY = new THREE.Object3D();
-for (var i = 0; i < 360; i = i + 5) {
+for (let i = 0; i < 360; i = i + 5) {
     geometry = new THREE.Geometry();
     if (i % 10 === 0) {
         geometry.vertices.push(new THREE.Vector3(-.1, 0, 0));

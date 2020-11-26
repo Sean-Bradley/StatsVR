@@ -7,7 +7,6 @@ const scene = new THREE.Scene();
 const explosions = [];
 explosions.push(new Explosion(new THREE.Color(0xff0000), scene));
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-scene.add(camera);
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -53,7 +52,7 @@ for (let i = 0; i < 5; i++) {
     collidableMeshList.push(cubes[i]);
     scene.add(cubes[i]);
 }
-var floor = new THREE.Mesh(new THREE.PlaneBufferGeometry(100, 100, 10, 10), new THREE.MeshBasicMaterial({
+const floor = new THREE.Mesh(new THREE.PlaneBufferGeometry(100, 100, 10, 10), new THREE.MeshBasicMaterial({
     color: 0x008800,
     wireframe: true
 }));
@@ -66,7 +65,7 @@ function onWindowResize() {
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
-const statsVR = new StatsVR(camera);
+const statsVR = new StatsVR(scene, camera);
 //change default statsvr position
 statsVR.setX(-.5);
 statsVR.setY(.5);
@@ -99,10 +98,10 @@ function render() {
             const collisionResults = ray.intersectObjects(collidableMeshList);
             if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
                 swordLeftCollided = true;
-                //haptics disabled until supported
-                // if (controller0.userData.gamepad && controller0.userData.gamepad.hapticActuators && controller1.userData.gamepad.hapticActuators.length > 0) {
-                //     controller0.userData.gamepad.hapticActuators[0].pulse(0.25, 10);
-                // }
+                //haptics may no work
+                if (controller0.userData.gamepad && controller0.userData.gamepad.hapticActuators && controller1.userData.gamepad.hapticActuators.length > 0) {
+                    controller0.userData.gamepad.hapticActuators[0].pulse(0.25, 10);
+                }
                 swordLeft.material.color.setHex(0xFF8800);
                 explosions[0].explode(collisionResults[0].point);
                 if (collisionResults[0].object.userData.type === "cube") {
@@ -126,10 +125,10 @@ function render() {
             const collisionResults = ray.intersectObjects(collidableMeshList);
             if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
                 swordRightCollided = true;
-                //haptics disabled until supported
-                // if (controller1.userData.gamepad && controller1.userData.gamepad.hapticActuators && controller1.userData.gamepad.hapticActuators.length > 1) {
-                //     controller1.userData.gamepad.hapticActuators[1].pulse(0.25, 10);
-                // }
+                //haptics may no work
+                if (controller1.userData.gamepad && controller1.userData.gamepad.hapticActuators && controller1.userData.gamepad.hapticActuators.length > 1) {
+                    controller1.userData.gamepad.hapticActuators[1].pulse(0.25, 10);
+                }
                 swordRight.material.color.setHex(0xFF8800);
                 explosions[0].explode(collisionResults[0].point);
                 if (collisionResults[0].object.userData.type === "cube") {

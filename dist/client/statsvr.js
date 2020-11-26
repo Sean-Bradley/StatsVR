@@ -3,7 +3,7 @@
 //https://github.com/Sean-Bradley/StatsVR/blob/master/LICENSE
 import * as THREE from '/build/three.module.js';
 export default class StatsVR {
-    constructor(camera) {
+    constructor(scene, camera) {
         this.timer = (performance || Date);
         this.msActive = false;
         this.msStart = this.timer.now();
@@ -15,6 +15,7 @@ export default class StatsVR {
         this.fpsFrames = 0;
         this.fpsGraphData = new Array(32).fill(0);
         this.camera = camera;
+        scene.add(camera);
         this.canvas = document.createElement('canvas');
         this.canvas.width = 64;
         this.canvas.height = 64;

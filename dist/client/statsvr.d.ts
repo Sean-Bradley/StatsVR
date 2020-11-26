@@ -18,7 +18,7 @@ export default class StatsVR {
     private fpsLastTime;
     private fpsFrames;
     private fpsGraphData;
-    constructor(camera: THREE.Camera);
+    constructor(scene: THREE.Scene, camera: THREE.Camera);
     setEnabled(enabled: boolean): void;
     setX(val: number): void;
     setY(val: number): void;

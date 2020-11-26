@@ -25,8 +25,9 @@ export default class StatsVR {
     private fpsFrames = 0;
     private fpsGraphData = new Array(32).fill(0)    
 
-    constructor(camera: THREE.Camera) {
+    constructor(scene: THREE.Scene, camera: THREE.Camera) {
         this.camera = camera
+        scene.add(camera)
 
         this.canvas = document.createElement('canvas') as HTMLCanvasElement 
         this.canvas.width = 64;

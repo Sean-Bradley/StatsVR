@@ -47,10 +47,6 @@ import StatsVR from './statsvr.js'
 	```javascript
 	import StatsVR from './statsvr.js';
 	```
-* Add your Threejs Camera to the Scene. (Otherwise StatsVR won't be visible in the HMD)
-	```javascript
-	scene.add(camera);
-	```
 * Instantiate and position StatsVR
 	```javascript
 	const statsVR = new StatsVR(camera);
@@ -70,7 +66,6 @@ import StatsVR from './statsvr.js';
 import { VRButton } from '/jsm/webxr/VRButton';
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-scene.add(camera);
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);

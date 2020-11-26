@@ -11,7 +11,6 @@ const explosions: Explosion[] = []
 explosions.push(new Explosion(new THREE.Color(0xff0000), scene))
 
 const camera: THREE.PerspectiveCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
-scene.add(camera)
 
 const renderer = new THREE.WebGLRenderer({ antialias: true })
 renderer.setPixelRatio(window.devicePixelRatio)
@@ -100,7 +99,7 @@ function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight)
 }
 
-const statsVR = new StatsVR(camera)
+const statsVR = new StatsVR(scene, camera)
 //change default statsvr position
 statsVR.setX(-.5)
 statsVR.setY(.5)
