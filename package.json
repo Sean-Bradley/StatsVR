@@ -1,6 +1,6 @@
 {
   "name": "statsvr",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Performance statistics HUD specifically for WebXR THREE.js Projects.",
   "main": "./dist/client/statsvr.js",
   "scripts": {

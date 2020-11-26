@@ -15,7 +15,9 @@ export default class StatsVR {
         this.fpsFrames = 0;
         this.fpsGraphData = new Array(32).fill(0);
         this.camera = camera;
-        scene.add(camera);
+        if (this.camera.parent === null) {
+            scene.add(camera);
+        }
         this.canvas = document.createElement('canvas');
         this.canvas.width = 64;
         this.canvas.height = 64;

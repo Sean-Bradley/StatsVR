@@ -6,7 +6,7 @@ import * as THREE from '/build/three.module.js'
 
 export default class StatsVR {
 
-    private camera:THREE.Camera
+    private camera: THREE.Camera
     private canvas: HTMLCanvasElement
     private ctx: CanvasRenderingContext2D
     private texture: THREE.Texture
@@ -23,13 +23,15 @@ export default class StatsVR {
     private statsDisplayRefreshDelay = 100
     private fpsLastTime = this.timer.now()
     private fpsFrames = 0;
-    private fpsGraphData = new Array(32).fill(0)    
+    private fpsGraphData = new Array(32).fill(0)
 
     constructor(scene: THREE.Scene, camera: THREE.Camera) {
         this.camera = camera
-        scene.add(camera)
+        if (this.camera.parent === null) {
+            scene.add(camera)
+        }
 
-        this.canvas = document.createElement('canvas') as HTMLCanvasElement 
+        this.canvas = document.createElement('canvas') as HTMLCanvasElement
         this.canvas.width = 64;
         this.canvas.height = 64;
 
