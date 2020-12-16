@@ -49,7 +49,8 @@ import StatsVR from './statsvr.js'
 	```
 * Instantiate and position StatsVR
 	```javascript
-	const statsVR = new StatsVR(camera);
+	//pass in an existing scene and camera
+	const statsVR = new StatsVR(scene, camera)
 	//change default statsvr position
 	statsVR.setX(0);
 	statsVR.setY(0);
@@ -60,65 +61,34 @@ import StatsVR from './statsvr.js'
 	statsVR.update();
 	```
 
-```javascript{2,6,26,27,28,29,30,32}
-import * as THREE from '/build/three.module.js';
-import StatsVR from './statsvr.js';
-import { VRButton } from '/jsm/webxr/VRButton';
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer({ antialias: true });
-renderer.setPixelRatio(window.devicePixelRatio);
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.xr.enabled = true;
-document.body.appendChild(renderer.domElement);
-document.body.appendChild(VRButton.createButton(renderer));
-var floor = new THREE.Mesh(new THREE.PlaneBufferGeometry(100, 100, 10, 10), new THREE.MeshBasicMaterial({
-    color: 0x008800,
-    wireframe: true
-}));
-floor.rotation.x = Math.PI / -2;
-floor.position.y = -0.001;
-scene.add(floor);
-window.addEventListener('resize', onWindowResize, false);
-function onWindowResize() {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-}
-const statsVR = new StatsVR(camera);
-//change default statsvr position
-statsVR.setX(0);
-statsVR.setY(0);
-statsVR.setZ(-2);
-function render() {
-    statsVR.update();
-    renderer.render(scene, camera);
-}
-renderer.setAnimationLoop(render);
-```
+See the source code of the working examples.
 
 ## Example 1
 
 Basic StatsVR setup for WebVR and Threejs projects.
 
+[StatsVR Example 1](https://sbcode.net/threejs/statsvr-1/)
 [![StatsVR Example 1](./dist/client/img/demo1.gif)](https://sbcode.net/threejs/statsvr-1/)
 
 ## Example 2
 
 Advanced StatsVR for WebVR and Threejs projects. Change position and show Millisecond Graph.
 
+[StatsVR Example 2](https://sbcode.net/threejs/statsvr-2/)
 [![StatsVR Example 2](./dist/client/img/demo2.gif)](https://sbcode.net/threejs/statsvr-2/)
 
 ## Example 3
 
 Advanced StatsVR for WebVR and Threejs projects. Custom Variables and custom 3d objects.
 
+[StatsVR Example 3](https://sbcode.net/threejs/statsvr-3/)
 [![StatsVR Example 3](./dist/client/img/demo3.gif)](https://sbcode.net/threejs/statsvr-3/)
 
 ## Example 4
 
 StatsVR in a minigame using WebVR, Threejs, Haptic Feedback and Collision Detection.
 
+[StatsVR Example 4](https://sbcode.net/threejs/statsvr-4/)
 [![StatsVR Example 4](./dist/client/img/demo4.gif)](https://sbcode.net/threejs/statsvr-4/)
 
 <!-- ## Video Tutorial of using StatsVR

@@ -43,10 +43,10 @@ export default class StatsVR {
         this.statsPlane = new THREE.Mesh(geometry, material)
         this.statsPlane.position.x = 0
         this.statsPlane.position.y = 1.5
-        this.statsPlane.position.z = -5;
+        this.statsPlane.position.z = -5
         this.statsPlane.renderOrder = 9999
 
-        this.camera.add(this.statsPlane);
+        this.camera.add(this.statsPlane)
     }
 
     public setEnabled(enabled: boolean) {
