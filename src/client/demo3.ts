@@ -40,28 +40,31 @@ statsVR.setY(.5)
 statsVR.setZ(-5)
 
 const hudX = new THREE.Object3D()
-let geometry = new THREE.Geometry()
-geometry.vertices.push(new THREE.Vector3(-.5, 0, 0))
-geometry.vertices.push(new THREE.Vector3(.5, 0, 0))
+let points = [];
+points.push(new THREE.Vector3(-.5, 0, 0))
+points.push(new THREE.Vector3(.5, 0, 0))
+let geometry = new THREE.BufferGeometry().setFromPoints( points );
 let line = new THREE.Line(geometry, new THREE.LineBasicMaterial({ color: 0x888888 }));
 line.position.z = -5
 statsVR.add(line)
-geometry = new THREE.Geometry();
-geometry.vertices.push(new THREE.Vector3(0, -.5, 0))
-geometry.vertices.push(new THREE.Vector3(0, .5, 0))
+points = [];
+points.push(new THREE.Vector3(0, -.5, 0))
+points.push(new THREE.Vector3(0, .5, 0))
+geometry = new THREE.BufferGeometry().setFromPoints( points );
 line = new THREE.Line(geometry, new THREE.LineBasicMaterial({ color: 0x888888 }));
 line.position.z = -5;
 statsVR.add(line);
 
 for (let i = 0; i < 360; i = i + 5) {
-    geometry = new THREE.Geometry()
+    points = [];
     if (i % 10 === 0) {
-        geometry.vertices.push(new THREE.Vector3(0, -.1, 0))
-        geometry.vertices.push(new THREE.Vector3(0, .1, 0))
+        points.push(new THREE.Vector3(0, -.1, 0))
+        points.push(new THREE.Vector3(0, .1, 0))
     } else {
-        geometry.vertices.push(new THREE.Vector3(0, -.05, 0))
-        geometry.vertices.push(new THREE.Vector3(0, .05, 0))
+        points.push(new THREE.Vector3(0, -.05, 0))
+        points.push(new THREE.Vector3(0, .05, 0))
     }
+    geometry = new THREE.BufferGeometry().setFromPoints( points );
     line = new THREE.Line(geometry, new THREE.LineBasicMaterial({ color: 0x888888 }))
     line.position.x = 5 * Math.cos(i * Math.PI / 180)
     line.position.z = 5 * Math.sin(i * Math.PI / 180)
@@ -70,14 +73,15 @@ for (let i = 0; i < 360; i = i + 5) {
 
 const hudY = new THREE.Object3D()
 for (let i = 0; i < 360; i = i + 5) {
-    geometry = new THREE.Geometry();
+    points = [];
     if (i % 10 === 0) {
-        geometry.vertices.push(new THREE.Vector3(-.1, 0, 0))
-        geometry.vertices.push(new THREE.Vector3(.1, 0, 0))
+        points.push(new THREE.Vector3(-.1, 0, 0))
+        points.push(new THREE.Vector3(.1, 0, 0))
     } else {
-        geometry.vertices.push(new THREE.Vector3(-.05, 0, 0))
-        geometry.vertices.push(new THREE.Vector3(.05, 0, 0))
+        points.push(new THREE.Vector3(-.05, 0, 0))
+        points.push(new THREE.Vector3(.05, 0, 0))
     }
+    geometry = new THREE.BufferGeometry().setFromPoints( points );
     line = new THREE.Line(geometry, new THREE.LineBasicMaterial({ color: 0x888888 }))
     line.position.z = 5 * Math.cos(i * Math.PI / 180)
     line.position.y = 5 * Math.sin(i * Math.PI / 180)
