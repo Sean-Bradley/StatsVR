@@ -127,9 +127,11 @@ function render() {
     })
 
     let swordLeftCollided = false
-    for (let v = 0; v < swordLeft.geometry.vertices.length; v++) {
+    let positions = swordLeft.geometry.attributes.position.array as Array<number>
+    for (let i = 0; i < positions.length; i += 3) {
         if (!swordLeftCollided) {
-            const localVertex = swordLeft.geometry.vertices[v].clone()
+            // const localVertex = swordLeft.geometry.vertices[v].clone()
+            const localVertex = new THREE.Vector3(positions[i], positions[i + 1], positions[i + 2])
             const globalVertex = localVertex.applyMatrix4(swordLeft.matrixWorld)
             const swordLeftWorldPosition = new THREE.Vector3()
             swordLeft.getWorldPosition(swordLeftWorldPosition)
@@ -143,7 +145,7 @@ function render() {
                 if (controller0.userData.gamepad && controller0.userData.gamepad.hapticActuators && controller1.userData.gamepad.hapticActuators.length > 0) {
                     controller0.userData.gamepad.hapticActuators[0].pulse(0.25, 10);
                 }
-                swordLeft.material.color.setHex(0xFF8800)
+                (swordLeft.material as THREE.MeshBasicMaterial).color.setHex(0xFF8800)
                 explosions[0].explode(collisionResults[0].point)
                 if (collisionResults[0].object.userData.type === "cube") {
                     Score++;
@@ -152,13 +154,14 @@ function render() {
         }
     }
     if (!swordLeftCollided) {
-        swordLeft.material.color.setHex(0xDB3236);
+        (swordLeft.material as THREE.MeshBasicMaterial).color.setHex(0xDB3236);
     }
 
     let swordRightCollided = false
-    for (let v = 0; v < swordRight.geometry.vertices.length; v++) {
+    positions = swordRight.geometry.attributes.position.array as Array<number>
+    for (let i = 0; i < positions.length; i += 3) {
         if (!swordRightCollided) {
-            const localVertex = swordRight.geometry.vertices[v].clone()
+            const localVertex = new THREE.Vector3(positions[i], positions[i + 1], positions[i + 2])
             const globalVertex = localVertex.applyMatrix4(swordRight.matrixWorld)
             const swordRightWorldPosition = new THREE.Vector3()
             swordRight.getWorldPosition(swordRightWorldPosition)
@@ -172,7 +175,7 @@ function render() {
                 if (controller1.userData.gamepad && controller1.userData.gamepad.hapticActuators && controller1.userData.gamepad.hapticActuators.length > 1) {
                     controller1.userData.gamepad.hapticActuators[1].pulse(0.25, 10);
                 }
-                swordRight.material.color.setHex(0xFF8800)
+                (swordRight.material as THREE.MeshBasicMaterial).color.setHex(0xFF8800)
                 explosions[0].explode(collisionResults[0].point)
                 if (collisionResults[0].object.userData.type === "cube") {
                     Score++;
@@ -181,7 +184,7 @@ function render() {
         }
     }
     if (!swordRightCollided) {
-        swordRight.material.color.setHex(0xDB3236);
+        (swordRight.material as THREE.MeshBasicMaterial).color.setHex(0xDB3236);
     }
 
     explosions.forEach(e => {

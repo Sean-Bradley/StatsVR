@@ -87,9 +87,11 @@ function render() {
         }
     });
     let swordLeftCollided = false;
-    for (let v = 0; v < swordLeft.geometry.vertices.length; v++) {
+    let positions = swordLeft.geometry.attributes.position.array;
+    for (let i = 0; i < positions.length; i += 3) {
         if (!swordLeftCollided) {
-            const localVertex = swordLeft.geometry.vertices[v].clone();
+            // const localVertex = swordLeft.geometry.vertices[v].clone()
+            const localVertex = new THREE.Vector3(positions[i], positions[i + 1], positions[i + 2]);
             const globalVertex = localVertex.applyMatrix4(swordLeft.matrixWorld);
             const swordLeftWorldPosition = new THREE.Vector3();
             swordLeft.getWorldPosition(swordLeftWorldPosition);
@@ -114,9 +116,10 @@ function render() {
         swordLeft.material.color.setHex(0xDB3236);
     }
     let swordRightCollided = false;
-    for (let v = 0; v < swordRight.geometry.vertices.length; v++) {
+    positions = swordRight.geometry.attributes.position.array;
+    for (let i = 0; i < positions.length; i += 3) {
         if (!swordRightCollided) {
-            const localVertex = swordRight.geometry.vertices[v].clone();
+            const localVertex = new THREE.Vector3(positions[i], positions[i + 1], positions[i + 2]);
             const globalVertex = localVertex.applyMatrix4(swordRight.matrixWorld);
             const swordRightWorldPosition = new THREE.Vector3();
             swordRight.getWorldPosition(swordRightWorldPosition);
