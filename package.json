@@ -1,8 +1,8 @@
 {
   "name": "statsvr",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "description": "Performance statistics HUD specifically for WebXR THREE.js Projects.",
-  "module": "./dist/client/statsvr.js",
+  "main": "./dist/client/statsvr.js",
   "scripts": {
     "build": "tsc --outDir ./dist/client --module ES6 --declaration true ./src/client/statsvr.ts && webpack --config ./src/client/webpack.prod.js",
     "dev": "webpack serve --config ./src/client/webpack.dev.js",
