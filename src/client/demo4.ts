@@ -1,7 +1,7 @@
-import * as THREE from '/build/three.module.js'
-import StatsVR from './statsvr.js'
-import { VRButton } from '/jsm/webxr/VRButton'
-import Explosion from './explosion.js'
+import * as THREE from 'three'
+import StatsVR from './statsvr'
+import { VRButton } from 'three/examples/jsm/webxr/VRButton'
+import Explosion from './explosion'
 
 let Score = 0
 
@@ -38,30 +38,30 @@ const swordLeft = new THREE.Mesh(
     new THREE.BoxGeometry(0.03, 4.0, 0.03),
     swordMaterial
 );
-swordLeft.geometry.translate(0, -1.9, 0);
-swordLeft.geometry.rotateX(-Math.PI / 8)
+swordLeft.geometry.translate(0, -1.8, 0);
+swordLeft.geometry.rotateX(Math.PI / 2)
 controller0.add(swordLeft);
 collidableMeshList.push(swordLeft);
 const swordLeftHandGuard = new THREE.Mesh(
     new THREE.CylinderGeometry(0.005, 0.05, 0.2, 6),
     swordMaterial
 );
-swordLeftHandGuard.geometry.rotateX(-Math.PI / 8)
+swordLeftHandGuard.geometry.rotateX(Math.PI / 2)
 controller0.add(swordLeftHandGuard);
 
 const swordRight = new THREE.Mesh(
     new THREE.BoxGeometry(0.03, 4.0, 0.03),
     swordMaterial
 );
-swordRight.geometry.translate(0, -1.9, 0);
-swordRight.geometry.rotateX(-Math.PI / 8)
+swordRight.geometry.translate(0, -1.8, 0);
+swordRight.geometry.rotateX(Math.PI / 2)
 controller1.add(swordRight)
 collidableMeshList.push(swordRight)
 const swordRightHandGuard = new THREE.Mesh(
     new THREE.CylinderGeometry(0.005, 0.05, 0.2, 6),
     swordMaterial
 );
-swordRightHandGuard.geometry.rotateX(-Math.PI / 8)
+swordRightHandGuard.geometry.rotateX(Math.PI / 2)
 controller1.add(swordRightHandGuard);
 
 

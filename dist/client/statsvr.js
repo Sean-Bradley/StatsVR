@@ -1,10 +1,13 @@
-//MIT License
-//Copyright (c) 2020 Sean Bradley
-//https://github.com/Sean-Bradley/StatsVR/blob/master/LICENSE
-import * as THREE from '/build/three.module.js';
-export default class StatsVR {
-    constructor(scene, camera) {
-        this.timer = (performance || Date);
+/**
+ * @license
+ * StatsVR library and demos
+ * Copyright 2018-2021 Sean Bradley
+ * https://github.com/Sean-Bradley/StatsVR/blob/master/LICENSE
+ */
+import * as THREE from "three";
+var StatsVR = /** @class */ (function () {
+    function StatsVR(scene, camera) {
+        this.timer = performance || Date;
         this.msActive = false;
         this.msStart = this.timer.now();
         this.msEnd = this.timer.now();
@@ -18,13 +21,17 @@ export default class StatsVR {
         if (this.camera.parent === null) {
             scene.add(camera);
         }
-        this.canvas = document.createElement('canvas');
+        this.canvas = document.createElement("canvas");
         this.canvas.width = 64;
         this.canvas.height = 64;
-        this.ctx = this.canvas.getContext('2d');
+        this.ctx = this.canvas.getContext("2d");
         this.texture = new THREE.Texture(this.canvas);
-        const material = new THREE.MeshBasicMaterial({ map: this.texture, depthTest: false, transparent: true });
-        const geometry = new THREE.PlaneGeometry(1, 1, 1, 1);
+        var material = new THREE.MeshBasicMaterial({
+            map: this.texture,
+            depthTest: false,
+            transparent: true
+        });
+        var geometry = new THREE.PlaneGeometry(1, 1, 1, 1);
         this.statsPlane = new THREE.Mesh(geometry, material);
         this.statsPlane.position.x = 0;
         this.statsPlane.position.y = 1.5;
@@ -32,42 +39,42 @@ export default class StatsVR {
         this.statsPlane.renderOrder = 9999;
         this.camera.add(this.statsPlane);
     }
-    setEnabled(enabled) {
+    StatsVR.prototype.setEnabled = function (enabled) {
         this.statsPlane.visible = enabled;
-    }
-    setX(val) {
+    };
+    StatsVR.prototype.setX = function (val) {
         this.statsPlane.position.x = val;
-    }
-    setY(val) {
+    };
+    StatsVR.prototype.setY = function (val) {
         this.statsPlane.position.y = val;
-    }
-    setZ(val) {
+    };
+    StatsVR.prototype.setZ = function (val) {
         this.statsPlane.position.z = val;
-    }
-    setCustom1(val) {
+    };
+    StatsVR.prototype.setCustom1 = function (val) {
         this.custom1 = val;
-    }
-    setCustom2(val) {
+    };
+    StatsVR.prototype.setCustom2 = function (val) {
         this.custom2 = val;
-    }
-    setCustom3(val) {
+    };
+    StatsVR.prototype.setCustom3 = function (val) {
         this.custom3 = val;
-    }
-    startTimer() {
+    };
+    StatsVR.prototype.startTimer = function () {
         this.msActive = true;
         this.msStart = this.timer.now();
-    }
-    endTimer() {
+    };
+    StatsVR.prototype.endTimer = function () {
         this.msEnd = this.timer.now();
-        this.ms = (((this.msEnd - this.msStart) * 100) / 100);
-    }
-    add(object3d) {
+        this.ms = ((this.msEnd - this.msStart) * 100) / 100;
+    };
+    StatsVR.prototype.add = function (object3d) {
         this.camera.add(object3d);
-    }
-    update() {
+    };
+    StatsVR.prototype.update = function () {
         this.texture.needsUpdate = true;
-        const now = this.timer.now();
-        const dt = now - this.fpsLastTime;
+        var now = this.timer.now();
+        var dt = now - this.fpsLastTime;
         this.fpsFrames++;
         if (now > this.fpsLastTime + this.statsDisplayRefreshDelay) {
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -80,11 +87,11 @@ export default class StatsVR {
                 this.fpsGraphData.shift();
             }
             var ratio = Math.max.apply(null, this.fpsGraphData);
-            this.ctx.strokeStyle = '#035363';
+            this.ctx.strokeStyle = "#035363";
             for (var i = 0; i < 32; i++) {
                 this.ctx.beginPath();
                 this.ctx.moveTo(i, 16);
-                this.ctx.lineTo(i, (16 - (this.fpsGraphData[i] / ratio) * 16));
+                this.ctx.lineTo(i, 16 - (this.fpsGraphData[i] / ratio) * 16);
                 this.ctx.stroke();
             }
             this.ctx.font = "13px Calibri";
@@ -97,11 +104,11 @@ export default class StatsVR {
                     this.msGraphData.shift();
                 }
                 ratio = Math.max.apply(null, this.msGraphData);
-                this.ctx.strokeStyle = '#f35363';
+                this.ctx.strokeStyle = "#f35363";
                 for (var i = 0; i < 32; i++) {
                     this.ctx.beginPath();
                     this.ctx.moveTo(i + 32, 16);
-                    this.ctx.lineTo(i + 32, (16 - (this.msGraphData[i] / ratio) * 16));
+                    this.ctx.lineTo(i + 32, 16 - (this.msGraphData[i] / ratio) * 16);
                     this.ctx.stroke();
                 }
                 this.ctx.font = "13px Calibri";
@@ -125,5 +132,7 @@ export default class StatsVR {
                 this.ctx.fillText(this.custom3, 0, 61);
             }
         }
-    }
-}
+    };
+    return StatsVR;
+}());
+export default StatsVR;

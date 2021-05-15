@@ -1,14 +1,15 @@
 # StatsVR
+
 Performance statistics HUD specifically for WebVR &amp; THREE.js Projects that use a HMD, such as Oculus Rift
 
 The purpose of StatsVR is to monitor your computers performance while developing and running your application so that you don't need to remove your headset to check.
 
-The StatsVR HUD displays the 
+The StatsVR HUD displays the
 
-* frames per second (FPS), 
-* millisecond duration (MS) of a section of code,
-* Up to 3 custom variables in the HMD view, always facing the camera, and always on top of other meshes in the scene,
-* Custom Object3Ds that you can also attach to the StatsVR Object3D. See Example 3.
+- frames per second (FPS),
+- millisecond duration (MS) of a section of code,
+- Up to 3 custom variables in the HMD view, always facing the camera, and always on top of other meshes in the scene,
+- Custom Object3Ds that you can also attach to the StatsVR Object3D. See Example 3.
 
 You can download the project and view the examples.
 
@@ -21,45 +22,35 @@ npm run dev
 
 Visit http://127.0.0.1:3000/
 
-This is a typescript project consisting of two sub projects with there own *tsconfigs*.
+This is a typescript project consisting of two sub projects with there own _tsconfigs_.
 
-To edit this example, then modify the files in ./src/client/ or ./src/server/. 
+To edit this example, then modify the files in ./src/client/ or ./src/server/.
 
-The projects will auto recompile if you started it by using *npm run dev*
-
-or
-
-You can simply just import the generated *./dist/client/statsvr.js* directly into your own project as a module.
+The projects will auto recompile if you started it by using _npm run dev_
 
 ```javascript
-<script type="module" src="./statsvr.js"></script>
-```
-
-or as ES6 import
-
-```javascript
-import StatsVR from './statsvr.js'
+import StatsVR from "statsvr";
 ```
 
 ## Simplest Example
 
-* Import StatsVR
-	```javascript
-	import StatsVR from './statsvr.js';
-	```
-* Instantiate and position StatsVR
-	```javascript
-	//pass in an existing scene and camera
-	const statsVR = new StatsVR(scene, camera)
-	//change default statsvr position
-	statsVR.setX(0);
-	statsVR.setY(0);
-	statsVR.setZ(-2);
-	```
-* Update StatsVR in the render loop
-	```javascript
-	statsVR.update();
-	```
+- Import StatsVR
+  ```javascript
+  import StatsVR from "statsvr";
+  ```
+- Instantiate and position StatsVR
+  ```javascript
+  //pass in an existing scene and camera
+  const statsVR = new StatsVR(scene, camera);
+  //change default statsvr position
+  statsVR.setX(0);
+  statsVR.setY(0);
+  statsVR.setZ(-2);
+  ```
+- Update StatsVR in the render loop
+  ```javascript
+  statsVR.update();
+  ```
 
 See the source code of the working examples.
 
@@ -103,7 +94,7 @@ https://github.com/Sean-Bradley/StatsVR -->
 
 <!-- ## StatsVR Examples,
 https://sean-bradley.github.io/StatsVR/  -->
-<!-- 
+<!--
 ## Initial Setup
 Download statsvr.js, save it, and include reference to script in your html head. eg
 
@@ -125,8 +116,8 @@ init();
 ## Showing the Default FPS Counter and Graph
 ![Default FPS Counter and Graph](docs/img/statsVR_FPS.jpg)
 
-To show the default StatsVR FPS counter and graph, add the line 
-``statsVR.update();`` 
+To show the default StatsVR FPS counter and graph, add the line
+``statsVR.update();``
 anywhere inside your THREE.js render or animation loop.
 
 eg,
@@ -150,7 +141,7 @@ To show the StatsVR FPS along with the optional MS counter and graph, also add t
 statsVR.msStart();
 //code you want to monitor the MS duration of goes here
 statsVR.msEnd();
-``` 
+```
 
 anywhere inside your THREE.js render or animation loop.
 
@@ -161,7 +152,7 @@ function render() {
 	statsVR.msStart(); // starts the MS monitor timespan
 	// specific code you want to monitor the MS duration of goes here
 	statsVR.msEnd(); // ends the MS monitor timespan
-	
+
 	statsVR.update(); //required anywhere within the loop
 
 	renderer.render(scene, camera)
@@ -175,11 +166,11 @@ function render() {
 	statsVR.msStart(); // starts the MS monitor timespan
 
 	// your existing animation magic
-	
+
 	statsVR.update();  // required anywhere within the loop
 
 	renderer.render(scene, camera)
-	
+
 	statsVR.msEnd(); // end the MS monitor timespan
 }
 renderer.animate(render);
@@ -203,7 +194,7 @@ The default panel is shown at offset
 ```javascript
 X = 0,
 Y = 1.5,
-Z = -5 
+Z = -5
 ```
 from the camera position and rotation in the THREE.js worldspace.
 You can modify those defaults if you want, eg, after you initialise the StatsVR object, you can change it's display coordinates.
@@ -222,7 +213,7 @@ The benefit of using StatsVR is that you don't need to remove the HMD to view th
 statsVR.setEnabled(true);  //visible, default
 statsVR.setEnabled(false); //hidden
 ```
-Note that the StatsVR is still in memory and may still be updated by your code. 
+Note that the StatsVR is still in memory and may still be updated by your code.
 StatsVR was originally written as as a debug tool, so you will get slightly better performance by removing StatsVR once you are satisified with your performance of your code or when compiling your production build.
 
 

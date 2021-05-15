@@ -1,10 +1,11 @@
 {
   "name": "statsvr",
-  "version": "2.2.1",
+  "version": "3.0.0",
   "description": "Performance statistics HUD specifically for WebXR THREE.js Projects.",
-  "main": "./dist/client/statsvr.js",
+  "module": "./dist/client/statsvr.js",
   "scripts": {
-    "dev": "concurrently -k \"tsc -p ./src/server -w\" \"tsc -p ./src/client -w\" \"nodemon ./dist/server/server.js\"",
+    "build": "tsc --outDir ./dist/client --module ES6 ./src/client/statsvr.ts && webpack --config ./src/client/webpack.prod.js",
+    "dev": "webpack serve --config ./src/client/webpack.dev.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./dist/server/server.js"
   },
@@ -26,14 +27,19 @@
   "license": "MIT",
   "homepage": "https://github.com/Sean-Bradley/StatsVR#readme",
   "devDependencies": {
+    "@types/express": "^4.17.11",
     "@types/node": "^13.13.15",
-    "@types/express": "^4.17.8",
-    "concurrently": "^5.3.0",
-    "nodemon": "^2.0.4"
+    "@types/three": "^0.128.0",
+    "html-webpack-plugin": "^5.3.1",
+    "ts-loader": "^8.0.14",
+    "typescript": "^4.2.4",
+    "webpack": "^5.37.0",
+    "webpack-cli": "^4.7.0",
+    "webpack-dev-server": "^3.11.2",
+    "webpack-merge": "^5.7.3"
   },
   "dependencies": {
     "express": "^4.17.1",
-    "three": "^0.125.2",
-    "typescript": "^4.0.3"
+    "three": "^0.128.0"
   }
 }
