@@ -34,6 +34,10 @@ import StatsVR from "statsvr";
 
 ## Simplest Example
 
+```bash
+npm install statsvr
+```
+
 - Import StatsVR
   ```javascript
   import StatsVR from "statsvr";
