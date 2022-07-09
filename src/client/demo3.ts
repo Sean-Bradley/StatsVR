@@ -102,7 +102,7 @@ function render() {
 
     if (renderer.xr.isPresenting) {
         const lookAtVector = new THREE.Vector3(0, 0, -1)
-        let xrCamera = renderer.xr.getCamera(camera);
+        let xrCamera = renderer.xr.getCamera();
         xrCamera.getWorldQuaternion(cameraWorldQuaternion);
         lookAtVector.applyQuaternion(cameraWorldQuaternion)
 
