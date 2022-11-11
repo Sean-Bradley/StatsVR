@@ -1,6 +1,6 @@
 {
   "name": "statsvr",
-  "version": "3.1.2",
+  "version": "3.1.3",
   "description": "Performance statistics HUD specifically for WebXR THREE.js Projects.",
   "main": "./dist/client/statsvr.js",
   "scripts": {
@@ -27,19 +27,19 @@
   "license": "MIT",
   "homepage": "https://github.com/Sean-Bradley/StatsVR#readme",
   "devDependencies": {
-    "@types/express": "^4.17.13",
-    "@types/node": "^17.0.13",
-    "@types/three": "^0.141.0",
+    "@types/express": "^4.17.14",
+    "@types/node": "^18.11.9",
+    "@types/three": "^0.146.0",
     "html-webpack-plugin": "^5.5.0",
-    "ts-loader": "^9.2.6",
-    "typescript": "^4.5.5",
-    "webpack": "^5.67.0",
-    "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.7.3",
+    "three": "^0.146.0",
+    "ts-loader": "^9.4.1",
+    "typescript": "^4.8.4",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.11.1",
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
-    "express": "^4.17.2",
-    "three": "^0.142.0"
+    "express": "^4.18.2"
   }
 }

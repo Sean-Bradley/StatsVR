@@ -81,7 +81,7 @@ for (let i = 0; i < 5; i++) {
 }
 
 const floor = new THREE.Mesh(
-    new THREE.PlaneBufferGeometry(100, 100, 10, 10),
+    new THREE.PlaneGeometry(100, 100, 10, 10),
     new THREE.MeshBasicMaterial({
         color: 0x008800,
         wireframe: true
