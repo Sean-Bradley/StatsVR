@@ -1,7 +1,7 @@
 /**
  * @license
  * StatsVR library and demos
- * Copyright 2018-2022 Sean Bradley
+ * Copyright 2018-2023 Sean Bradley
  * https://github.com/Sean-Bradley/StatsVR/blob/master/LICENSE
  */
 import * as THREE from "three";

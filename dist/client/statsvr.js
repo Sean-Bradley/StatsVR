@@ -1,10 +1,12 @@
+"use strict";
 /**
  * @license
  * StatsVR library and demos
- * Copyright 2018-2022 Sean Bradley
+ * Copyright 2018-2023 Sean Bradley
  * https://github.com/Sean-Bradley/StatsVR/blob/master/LICENSE
  */
-import * as THREE from "three";
+Object.defineProperty(exports, "__esModule", { value: true });
+var THREE = require("three");
 var StatsVR = /** @class */ (function () {
     function StatsVR(scene, camera) {
         this.timer = performance || Date;
@@ -29,7 +31,7 @@ var StatsVR = /** @class */ (function () {
         var material = new THREE.MeshBasicMaterial({
             map: this.texture,
             depthTest: false,
-            transparent: true
+            transparent: true,
         });
         var geometry = new THREE.PlaneGeometry(1, 1, 1, 1);
         this.statsPlane = new THREE.Mesh(geometry, material);
@@ -135,4 +137,4 @@ var StatsVR = /** @class */ (function () {
     };
     return StatsVR;
 }());
-export default StatsVR;
+exports.default = StatsVR;
