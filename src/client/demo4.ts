@@ -134,9 +134,7 @@ function render() {
     })
 
     let swordLeftCollided = false
-    let positions = (
-        swordLeft.geometry.attributes.position as THREE.BufferAttribute
-    ).array as Array<number>
+    let positions = swordLeft.geometry.attributes.position.array
     for (let i = 0; i < positions.length; i += 3) {
         if (!swordLeftCollided) {
             // const localVertex = swordLeft.geometry.vertices[v].clone()
@@ -183,8 +181,7 @@ function render() {
     }
 
     let swordRightCollided = false
-    positions = (swordRight.geometry.attributes.position as THREE.BufferAttribute)
-        .array as Array<number>
+    positions = swordRight.geometry.attributes.position.array
     for (let i = 0; i < positions.length; i += 3) {
         if (!swordRightCollided) {
             const localVertex = new THREE.Vector3(
